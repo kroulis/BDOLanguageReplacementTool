@@ -9,6 +9,7 @@ This tool helps you to replace the default language file of an installed Black D
 - TR Server
 - SA Server
 - Global Lab Server
+
 The tool currently does not support:
 - Korea Server
 
