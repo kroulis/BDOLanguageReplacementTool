@@ -9,6 +9,7 @@
 - TR Server （土耳其服）
 - SA Server （南美服）
 - Global Lab Server （全球实验室服）
+
 本工具目前不支持：
 - Korea Server （韩服）
 
