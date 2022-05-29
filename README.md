@@ -37,4 +37,4 @@ Special thanks to this **[Reddit Post](https://www.reddit.com/r/blackdesertonlin
 If you found any bug in this software, you can submit issues freely. I will regularly check the repo.
 
 ## Other information
-Chinese version of this document is at **[HERE](doc/README_ZH_CN.md))**
+Chinese version of this document is at **[HERE](doc/README_ZH_CN.md)**
