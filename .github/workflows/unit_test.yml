@@ -1,4 +1,4 @@
-name: Build
+name: Test
 
 on:
   push:
@@ -12,7 +12,7 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        dotnet-version: [ '5.0.x' ]
+        dotnet-version: [ '6.0.x' ]
 
     steps:
     - uses: actions/checkout@v2
@@ -24,6 +24,15 @@ jobs:
         dotnet-version: ${{ matrix.dotnet-version }}
     - name: Install dependencies
       run: dotnet restore
-    - name: Build Solution
-      run: |
-           msbuild.exe BDOLangReplacement.sln /p:platform="Any CPU" /p:configuration="Release"
+    - name: Build
+      run: dotnet build --configuration Release
+    - name: Run Unit Test
+      run: dotnet test --logger "trx;LogFileName=test-results.trx" || true
+    - name: Test Report
+      uses: dorny/test-reporter@v1
+      if: always()
+      with:
+        name: UnitTest
+        path: "**/test-results.trx"                            
+        reporter: dotnet-trx
+        fail-on-error: true
