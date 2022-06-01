@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BDOLangReplacement.Localizations
 {
-    class LocalizationENUS : Localization
+    public class LocalizationENUS : Localization
     {
         public LocalizationENUS()
         {

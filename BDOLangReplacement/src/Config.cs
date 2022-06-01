@@ -7,7 +7,7 @@ using System.IO;
 
 namespace BDOLangReplacement
 {
-    class Config
+    public class Config
     {
         public string BDOFolder;
         public Languages.Language defaultLanguage;
@@ -100,6 +100,24 @@ namespace BDOLangReplacement
             config.Write("tgtLang", ((int)defaultReplacementLanguage).ToString());
             config.Write("isSteam", isSteam.ToString());
             config.Write("appLang", appLang);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Config)
+            {
+                Config other = (Config)obj;
+                if (!other.appLang.Equals(appLang) ||
+                    other.defaultLanguage != defaultLanguage ||
+                    other.defaultReplacementLanguage != defaultReplacementLanguage ||
+                    !other.BDOFolder.Equals(BDOFolder) ||
+                    other.isSteam != isSteam)
+                {
+                    return false;
+                }
+                return true;
+            }
+            return base.Equals(obj);
         }
     }
 }

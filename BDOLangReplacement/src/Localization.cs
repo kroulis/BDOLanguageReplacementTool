@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BDOLangReplacement.Localizations
 {
-    abstract class Localization
+    public abstract class Localization
     {
         public enum FormComponent
         {
@@ -45,7 +45,8 @@ namespace BDOLangReplacement.Localizations
             FailedToInstallCNFont,
             FailedToInstallCNFontTitle,
             BDOLauncherFound,
-            BDOLauncherNotFound
+            BDOLauncherNotFound,
+            MAX
         }
 
         public static string APPTitle;

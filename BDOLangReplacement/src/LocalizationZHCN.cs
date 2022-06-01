@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BDOLangReplacement.Localizations
 {
-    class LocalizationZHCN : Localization
+    public class LocalizationZHCN : Localization
     {
         public LocalizationZHCN()
         {

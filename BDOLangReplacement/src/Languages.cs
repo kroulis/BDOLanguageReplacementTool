@@ -204,12 +204,16 @@ namespace BDOLangReplacement
                 versions[(int)lang] + "/" + GetLanguageFileName(lang);
         }
 
-        public bool DownloadLanguageFile(Language lang, string filePath, DownloadProgressChangedEventHandler hdl)
+        public bool DownloadLanguageFile(Language lang, string filePath, DownloadProgressChangedEventHandler hdl = null)
         {
             log = "";
             bool downloadFinished = false;
             WebClient client = new WebClient();
-            client.DownloadProgressChanged += hdl;
+            if (hdl != null)
+            {
+                client.DownloadProgressChanged += hdl;
+            }
+            
             client.DownloadFileCompleted += (object sender, System.ComponentModel.AsyncCompletedEventArgs e) => { downloadFinished = true; };
             try
             {
