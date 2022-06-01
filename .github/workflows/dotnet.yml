@@ -10,11 +10,20 @@ jobs:
   build:
 
     runs-on: windows-latest
+    strategy:
+      matrix:
+        dotnet-version: ['3.0', '3.1.x', '4.7.x', '5.0.x' ]
 
     steps:
     - uses: actions/checkout@v2
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v1
+    - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: ${{ matrix.dotnet-version }}
+    - name: Install dependencies
+      run: dotnet restore
     - name: Build Solution
       run: |
            msbuild.exe BDOLangReplacement.sln /p:platform="Any CPU" /p:configuration="Release"
