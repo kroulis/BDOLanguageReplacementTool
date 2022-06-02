@@ -1,4 +1,4 @@
-# BDO Language File Replacement Tool ![Build Status](https://github.com/kroulis/BDOLanguageReplacementTool/actions/workflows/dotnet.yml/badge.svg)
+# BDO Language File Replacement Tool ![Build Status](https://github.com/kroulis/BDOLanguageReplacementTool/actions/workflows/dotnet.yml/badge.svg) [![Unit Test](https://github.com/kroulis/BDOLanguageReplacementTool/actions/workflows/unit_test.yml/badge.svg)](https://github.com/kroulis/BDOLanguageReplacementTool/actions/workflows/unit_test.yml)
 
 This tool helps you to replace the default language file of an installed Black Desert Online with another language file (that could be in another Server). The tool currently supports:
 - NAEU Server
