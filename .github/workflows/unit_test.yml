@@ -24,10 +24,11 @@ jobs:
         dotnet-version: ${{ matrix.dotnet-version }}
     - name: Install dependencies
       run: dotnet restore
-    - name: Build
-      run: dotnet build --configuration Release
+    - name: Build Solution
+      run: |
+           msbuild.exe BDOLangReplacement.sln /p:platform="Any CPU" /p:configuration="Release"
     - name: Run Unit Test
-      run: dotnet test --logger "trx;LogFileName=test-results.trx" || true
+      run: dotnet test BDOLangReplacementUnitTest/bin/Release/netcoreapp3.1/BDOLangReplacementUnitTest.dll --logger "trx;LogFileName=test-results.trx" || true
     - name: Test Report
       uses: dorny/test-reporter@v1
       if: always()
