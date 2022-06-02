@@ -58,6 +58,10 @@ namespace BDOLangReplacement
             this.label7 = new System.Windows.Forms.Label();
             this.SetupCNFont = new System.Windows.Forms.Button();
             this.AboutTab = new System.Windows.Forms.TabPage();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.AboutTextBox = new System.Windows.Forms.TextBox();
+            this.appLangBox = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.processStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -66,10 +70,8 @@ namespace BDOLangReplacement
             this.downloadUpdate = new System.Windows.Forms.Timer(this.components);
             this.fontCheck = new System.Windows.Forms.Timer(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.appLangBox = new System.Windows.Forms.ComboBox();
-            this.AboutTextBox = new System.Windows.Forms.TextBox();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.ZhcnFontSwitchButton = new System.Windows.Forms.RadioButton();
+            this.TwcnFontSwitchButton = new System.Windows.Forms.RadioButton();
             this.controlTab.SuspendLayout();
             this.lvi.SuspendLayout();
             this.changeLang.SuspendLayout();
@@ -318,12 +320,14 @@ namespace BDOLangReplacement
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.TwcnFontSwitchButton);
+            this.groupBox2.Controls.Add(this.ZhcnFontSwitchButton);
             this.groupBox2.Controls.Add(this.CNFont);
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.SetupCNFont);
             this.groupBox2.Location = new System.Drawing.Point(12, 13);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(169, 80);
+            this.groupBox2.Size = new System.Drawing.Size(169, 124);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "TW_CN";
@@ -349,7 +353,7 @@ namespace BDOLangReplacement
             // 
             // SetupCNFont
             // 
-            this.SetupCNFont.Location = new System.Drawing.Point(11, 47);
+            this.SetupCNFont.Location = new System.Drawing.Point(13, 95);
             this.SetupCNFont.Name = "SetupCNFont";
             this.SetupCNFont.Size = new System.Drawing.Size(146, 23);
             this.SetupCNFont.TabIndex = 0;
@@ -369,6 +373,49 @@ namespace BDOLangReplacement
             this.AboutTab.TabIndex = 3;
             this.AboutTab.Text = "About";
             this.AboutTab.UseVisualStyleBackColor = true;
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(512, 279);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(69, 13);
+            this.linkLabel1.TabIndex = 3;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "GitHub Repo";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
+            // AboutTextBox
+            // 
+            this.AboutTextBox.Location = new System.Drawing.Point(6, 3);
+            this.AboutTextBox.Multiline = true;
+            this.AboutTextBox.Name = "AboutTextBox";
+            this.AboutTextBox.ReadOnly = true;
+            this.AboutTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.AboutTextBox.Size = new System.Drawing.Size(575, 257);
+            this.AboutTextBox.TabIndex = 2;
+            // 
+            // appLangBox
+            // 
+            this.appLangBox.FormattingEnabled = true;
+            this.appLangBox.IntegralHeight = false;
+            this.appLangBox.Items.AddRange(new object[] {
+            "English",
+            "简体中文"});
+            this.appLangBox.Location = new System.Drawing.Point(6, 279);
+            this.appLangBox.Name = "appLangBox";
+            this.appLangBox.Size = new System.Drawing.Size(121, 21);
+            this.appLangBox.TabIndex = 1;
+            this.appLangBox.SelectedIndexChanged += new System.EventHandler(this.appLangBox_SelectedIndexChanged);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(3, 263);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(58, 13);
+            this.label8.TabIndex = 0;
+            this.label8.Text = "Language:";
             // 
             // statusStrip1
             // 
@@ -427,48 +474,28 @@ namespace BDOLangReplacement
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
-            // label8
+            // ZhcnFontSwitchButton
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(3, 263);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(58, 13);
-            this.label8.TabIndex = 0;
-            this.label8.Text = "Language:";
+            this.ZhcnFontSwitchButton.AutoSize = true;
+            this.ZhcnFontSwitchButton.Location = new System.Drawing.Point(28, 49);
+            this.ZhcnFontSwitchButton.Name = "ZhcnFontSwitchButton";
+            this.ZhcnFontSwitchButton.Size = new System.Drawing.Size(110, 17);
+            this.ZhcnFontSwitchButton.TabIndex = 3;
+            this.ZhcnFontSwitchButton.TabStop = true;
+            this.ZhcnFontSwitchButton.Text = "Simplified Chinese";
+            this.ZhcnFontSwitchButton.UseVisualStyleBackColor = true;
             // 
-            // appLangBox
+            // TwcnFontSwitchButton
             // 
-            this.appLangBox.FormattingEnabled = true;
-            this.appLangBox.IntegralHeight = false;
-            this.appLangBox.Items.AddRange(new object[] {
-            "English",
-            "简体中文"});
-            this.appLangBox.Location = new System.Drawing.Point(6, 279);
-            this.appLangBox.Name = "appLangBox";
-            this.appLangBox.Size = new System.Drawing.Size(121, 21);
-            this.appLangBox.TabIndex = 1;
-            this.appLangBox.SelectedIndexChanged += new System.EventHandler(this.appLangBox_SelectedIndexChanged);
-            // 
-            // AboutTextBox
-            // 
-            this.AboutTextBox.Location = new System.Drawing.Point(6, 3);
-            this.AboutTextBox.Multiline = true;
-            this.AboutTextBox.Name = "AboutTextBox";
-            this.AboutTextBox.ReadOnly = true;
-            this.AboutTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.AboutTextBox.Size = new System.Drawing.Size(575, 257);
-            this.AboutTextBox.TabIndex = 2;
-            // 
-            // linkLabel1
-            // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(512, 279);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(69, 13);
-            this.linkLabel1.TabIndex = 3;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "GitHub Repo";
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            this.TwcnFontSwitchButton.AutoSize = true;
+            this.TwcnFontSwitchButton.Checked = true;
+            this.TwcnFontSwitchButton.Location = new System.Drawing.Point(28, 72);
+            this.TwcnFontSwitchButton.Name = "TwcnFontSwitchButton";
+            this.TwcnFontSwitchButton.Size = new System.Drawing.Size(115, 17);
+            this.TwcnFontSwitchButton.TabIndex = 4;
+            this.TwcnFontSwitchButton.TabStop = true;
+            this.TwcnFontSwitchButton.Text = "Traditional Chinese";
+            this.TwcnFontSwitchButton.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -543,6 +570,8 @@ namespace BDOLangReplacement
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox AboutTextBox;
         private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.RadioButton TwcnFontSwitchButton;
+        private System.Windows.Forms.RadioButton ZhcnFontSwitchButton;
     }
 }
 

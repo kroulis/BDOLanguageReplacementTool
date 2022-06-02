@@ -114,6 +114,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <None Include="Resources\pearl.ttf" />
+    <None Include="Resources\pearl_zh_cn.ttf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -41,6 +41,8 @@ namespace BDOLangReplacement.Localizations
             Tab3FontStatus,
             Tab3FontInstalled,
             Tab3FontMissing,
+            Tab3FontTypeSimplifiedChinese,
+            Tab3FontTypeTraditionalChinese,
             Tab4AboutText,
             FailedToInstallCNFont,
             FailedToInstallCNFontTitle,
@@ -80,6 +82,8 @@ namespace BDOLangReplacement.Localizations
         public static string Tab3FontStatus;
         public static string Tab3FontInstalled;
         public static string Tab3FontMissing;
+        public static string Tab3FontTypeSimplifiedChinese;
+        public static string Tab3FontTypeTraditionalChinese;
         public static string Tab4AboutText;
         public static string FailedToInstallCNFont;
         public static string FailedToInstallCNFontTitle;
@@ -153,6 +157,10 @@ namespace BDOLangReplacement.Localizations
                     return Tab3FontInstalled;
                 case FormComponent.Tab3FontMissing:
                     return Tab3FontMissing;
+                case FormComponent.Tab3FontTypeSimplifiedChinese:
+                    return Tab3FontTypeSimplifiedChinese;
+                case FormComponent.Tab3FontTypeTraditionalChinese:
+                    return Tab3FontTypeTraditionalChinese;
                 case FormComponent.Tab4AboutText:
                     return Tab4AboutText;
                 case FormComponent.FailedToInstallCNFont:

@@ -43,6 +43,8 @@ namespace BDOLangReplacement.Localizations
             Tab3FontStatus = "Font Status:";
             Tab3FontInstalled = "Installed";
             Tab3FontMissing = "Not Found";
+            Tab3FontTypeSimplifiedChinese = "Simplified Chinese";
+            Tab3FontTypeTraditionalChinese = "Traditional Chinese";
             Tab4AboutText = "This tool is made by Kroulis. You can replace you language file freely with this tool. " +
                 "This tool is proudly open sourced with MIT licence. You can check it out in GitHub using the link below. Have fun!";
             FailedToInstallCNFont = "Failed to install the CN Font.";

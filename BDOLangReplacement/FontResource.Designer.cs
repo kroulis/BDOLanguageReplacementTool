@@ -69,5 +69,15 @@ namespace BDOLangReplacement {
                 return ((byte[])(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] ZH_CN_Font_ttf {
+            get {
+                object obj = ResourceManager.GetObject("ZH_CN_Font.ttf", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

@@ -119,6 +119,8 @@ namespace BDOLangReplacement
             SetupCNFont.Text = loc.localize(Localization.FormComponent.Tab3CNFontBtnText);
             label7.Text = loc.localize(Localization.FormComponent.Tab3FontStatus);
             AboutTextBox.Text = loc.localize(Localization.FormComponent.Tab4AboutText);
+            ZhcnFontSwitchButton.Text = loc.localize(Localization.FormComponent.Tab3FontTypeSimplifiedChinese);
+            TwcnFontSwitchButton.Text = loc.localize(Localization.FormComponent.Tab3FontTypeTraditionalChinese);
         }
 
         private string ConfigFilePath()
@@ -515,7 +517,14 @@ namespace BDOLangReplacement
                     ResourceReader rr = new ResourceReader(font);
                     string resourceType;
                     byte[] resourceData;
-                    rr.GetResourceData("TW_CN_Font.ttf", out resourceType, out resourceData);
+                    if (TwcnFontSwitchButton.Checked)
+                    {
+                        rr.GetResourceData("TW_CN_Font.ttf", out resourceType, out resourceData);
+                    }
+                    else
+                    {
+                        rr.GetResourceData("ZH_CN_Font.ttf", out resourceType, out resourceData);
+                    }
                     rr.Close();
                     font.Close();
                     // First 4 bytes are size
@@ -524,7 +533,7 @@ namespace BDOLangReplacement
                     fs.Close();
                     font.Close();
                     // Write the font config
-                    string fontConfig = File.ReadAllText(BDOConfigPath + ".test");
+                    string fontConfig = File.ReadAllText(BDOConfigPath);
                     fontConfig = Regex.Replace(fontConfig, @"UIFontType = (\d{1})", "UIFontType = 0");
                     File.WriteAllText(BDOConfigPath + ".test", fontConfig);
                 }

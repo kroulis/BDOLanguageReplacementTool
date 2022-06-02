@@ -121,4 +121,7 @@
   <data name="TW_CN_Font.ttf" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\pearl.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="ZH_CN_Font.ttf" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\pearl_zh_cn.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>
