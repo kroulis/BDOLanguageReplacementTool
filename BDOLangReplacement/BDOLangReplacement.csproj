@@ -97,6 +97,7 @@
     <Compile Include="src\LocalizationZHCN.cs" />
     <Compile Include="src\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="src\Updater.cs" />
     <EmbeddedResource Include="FontResource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>FontResource.Designer.cs</LastGenOutput>

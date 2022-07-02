@@ -48,6 +48,7 @@ namespace BDOLangReplacement.Localizations
             FailedToInstallCNFontTitle,
             BDOLauncherFound,
             BDOLauncherNotFound,
+            NewVersionAvailable,
             MAX
         }
 
@@ -89,6 +90,7 @@ namespace BDOLangReplacement.Localizations
         public static string FailedToInstallCNFontTitle;
         public static string BDOLauncherFound;
         public static string BDOLauncherNotFound;
+        public static string NewVersionAvailable;
 
 
         public string localize(FormComponent fc)
@@ -171,6 +173,8 @@ namespace BDOLangReplacement.Localizations
                     return BDOLauncherFound;
                 case FormComponent.BDOLauncherNotFound:
                     return BDOLauncherNotFound;
+                case FormComponent.NewVersionAvailable:
+                    return NewVersionAvailable;
             }
             return "";
         }

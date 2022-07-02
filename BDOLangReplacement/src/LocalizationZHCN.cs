@@ -51,6 +51,7 @@ namespace BDOLangReplacement.Localizations
             FailedToInstallCNFontTitle = "出错了";
             BDOLauncherFound = "发现了执行中的黑色沙漠启动器……";
             BDOLauncherNotFound = "请先启动黑色沙漠启动器然后再替换或还原语言包。";
+            NewVersionAvailable = "工具当前版本 {0}, 线上最新版本 {1}。 \r\n请问是否要访问代码仓库以下载最新版本？";
         }
     }
 }

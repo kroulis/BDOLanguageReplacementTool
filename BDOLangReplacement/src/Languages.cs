@@ -20,6 +20,9 @@ namespace BDOLangReplacement
         private const string SA_LANG_VERSION_URL = "http://blackdesert.cdn.playredfox.net/BlackDesert/Live/ads_files";
         private const string GL_LANG_VERSION_URL = "http://dn.global-lab.playblackdesert.com/UploadData/ads_files";
 
+        // Delimiters
+        private const string AES_VERSION_DELIMITER = " \t";
+
         public enum Language
         {
             UNKNOWN = 0,
@@ -241,7 +244,7 @@ namespace BDOLangReplacement
             string[] versionLine = versionsStr.Split('\n');
             foreach(string version in versionLine)
             {
-                string[] lan_ver = version.Split('\t');
+                string[] lan_ver = version.Split(AES_VERSION_DELIMITER.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
                 if (lan_ver.Length != 2)
                 {
                     continue;
@@ -276,7 +279,7 @@ namespace BDOLangReplacement
             versionLine = versionsStr.Split('\n');
             foreach (string version in versionLine)
             {
-                string[] lan_ver = version.Split('\t');
+                string[] lan_ver = version.Split(AES_VERSION_DELIMITER.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
                 if (lan_ver.Length != 2)
                 {
                     continue;
@@ -299,7 +302,7 @@ namespace BDOLangReplacement
             versionLine = versionsStr.Split('\n');
             foreach (string version in versionLine)
             {
-                string[] lan_ver = version.Split('\t');
+                string[] lan_ver = version.Split(AES_VERSION_DELIMITER.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
                 if (lan_ver.Length != 2)
                 {
                     continue;
@@ -330,7 +333,7 @@ namespace BDOLangReplacement
             versionLine = versionsStr.Split('\n');
             foreach (string version in versionLine)
             {
-                string[] lan_ver = version.Split('\t');
+                string[] lan_ver = version.Split(AES_VERSION_DELIMITER.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
                 if (lan_ver.Length != 2)
                 {
                     continue;
@@ -353,7 +356,7 @@ namespace BDOLangReplacement
             versionLine = versionsStr.Split('\n');
             foreach (string version in versionLine)
             {
-                string[] lan_ver = version.Split('\t');
+                string[] lan_ver = version.Split(AES_VERSION_DELIMITER.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
                 if (lan_ver.Length != 2)
                 {
                     continue;
@@ -380,7 +383,7 @@ namespace BDOLangReplacement
             versionLine = versionsStr.Split('\n');
             foreach (string version in versionLine)
             {
-                string[] lan_ver = version.Split('\t');
+                string[] lan_ver = version.Split(AES_VERSION_DELIMITER.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
                 if (lan_ver.Length != 2)
                 {
                     continue;
@@ -403,7 +406,7 @@ namespace BDOLangReplacement
             versionLine = versionsStr.Split('\n');
             foreach (string version in versionLine)
             {
-                string[] lan_ver = version.Split('\t');
+                string[] lan_ver = version.Split(AES_VERSION_DELIMITER.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
                 if (lan_ver.Length != 2)
                 {
                     continue;
@@ -434,7 +437,7 @@ namespace BDOLangReplacement
             versionLine = versionsStr.Split('\n');
             foreach (string version in versionLine)
             {
-                string[] lan_ver = version.Split('\t');
+                string[] lan_ver = version.Split(AES_VERSION_DELIMITER.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
                 if (lan_ver.Length != 2)
                 {
                     continue;
@@ -461,7 +464,7 @@ namespace BDOLangReplacement
             versionLine = versionsStr.Split('\n');
             foreach (string version in versionLine)
             {
-                string[] lan_ver = version.Split('\t');
+                string[] lan_ver = version.Split(AES_VERSION_DELIMITER.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
                 if (lan_ver.Length != 2)
                 {
                     continue;

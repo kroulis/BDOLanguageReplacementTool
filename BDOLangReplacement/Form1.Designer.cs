@@ -54,6 +54,8 @@ namespace BDOLangReplacement
             this.label2 = new System.Windows.Forms.Label();
             this.Fonts = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.TwcnFontSwitchButton = new System.Windows.Forms.RadioButton();
+            this.ZhcnFontSwitchButton = new System.Windows.Forms.RadioButton();
             this.CNFont = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.SetupCNFont = new System.Windows.Forms.Button();
@@ -70,8 +72,6 @@ namespace BDOLangReplacement
             this.downloadUpdate = new System.Windows.Forms.Timer(this.components);
             this.fontCheck = new System.Windows.Forms.Timer(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.ZhcnFontSwitchButton = new System.Windows.Forms.RadioButton();
-            this.TwcnFontSwitchButton = new System.Windows.Forms.RadioButton();
             this.controlTab.SuspendLayout();
             this.lvi.SuspendLayout();
             this.changeLang.SuspendLayout();
@@ -332,6 +332,29 @@ namespace BDOLangReplacement
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "TW_CN";
             // 
+            // TwcnFontSwitchButton
+            // 
+            this.TwcnFontSwitchButton.AutoSize = true;
+            this.TwcnFontSwitchButton.Checked = true;
+            this.TwcnFontSwitchButton.Location = new System.Drawing.Point(28, 72);
+            this.TwcnFontSwitchButton.Name = "TwcnFontSwitchButton";
+            this.TwcnFontSwitchButton.Size = new System.Drawing.Size(115, 17);
+            this.TwcnFontSwitchButton.TabIndex = 4;
+            this.TwcnFontSwitchButton.TabStop = true;
+            this.TwcnFontSwitchButton.Text = "Traditional Chinese";
+            this.TwcnFontSwitchButton.UseVisualStyleBackColor = true;
+            // 
+            // ZhcnFontSwitchButton
+            // 
+            this.ZhcnFontSwitchButton.AutoSize = true;
+            this.ZhcnFontSwitchButton.Location = new System.Drawing.Point(28, 49);
+            this.ZhcnFontSwitchButton.Name = "ZhcnFontSwitchButton";
+            this.ZhcnFontSwitchButton.Size = new System.Drawing.Size(110, 17);
+            this.ZhcnFontSwitchButton.TabIndex = 3;
+            this.ZhcnFontSwitchButton.TabStop = true;
+            this.ZhcnFontSwitchButton.Text = "Simplified Chinese";
+            this.ZhcnFontSwitchButton.UseVisualStyleBackColor = true;
+            // 
             // CNFont
             // 
             this.CNFont.AutoSize = true;
@@ -474,29 +497,6 @@ namespace BDOLangReplacement
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
-            // ZhcnFontSwitchButton
-            // 
-            this.ZhcnFontSwitchButton.AutoSize = true;
-            this.ZhcnFontSwitchButton.Location = new System.Drawing.Point(28, 49);
-            this.ZhcnFontSwitchButton.Name = "ZhcnFontSwitchButton";
-            this.ZhcnFontSwitchButton.Size = new System.Drawing.Size(110, 17);
-            this.ZhcnFontSwitchButton.TabIndex = 3;
-            this.ZhcnFontSwitchButton.TabStop = true;
-            this.ZhcnFontSwitchButton.Text = "Simplified Chinese";
-            this.ZhcnFontSwitchButton.UseVisualStyleBackColor = true;
-            // 
-            // TwcnFontSwitchButton
-            // 
-            this.TwcnFontSwitchButton.AutoSize = true;
-            this.TwcnFontSwitchButton.Checked = true;
-            this.TwcnFontSwitchButton.Location = new System.Drawing.Point(28, 72);
-            this.TwcnFontSwitchButton.Name = "TwcnFontSwitchButton";
-            this.TwcnFontSwitchButton.Size = new System.Drawing.Size(115, 17);
-            this.TwcnFontSwitchButton.TabIndex = 4;
-            this.TwcnFontSwitchButton.TabStop = true;
-            this.TwcnFontSwitchButton.Text = "Traditional Chinese";
-            this.TwcnFontSwitchButton.UseVisualStyleBackColor = true;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -509,6 +509,7 @@ namespace BDOLangReplacement
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "BDOLanguageReplacementTool";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.controlTab.ResumeLayout(false);
             this.lvi.ResumeLayout(false);
             this.lvi.PerformLayout();

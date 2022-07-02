@@ -51,6 +51,7 @@ namespace BDOLangReplacement.Localizations
             FailedToInstallCNFontTitle = "Error";
             BDOLauncherFound = "Found BDO Launcher...";
             BDOLauncherNotFound = "Cannot find BDO Launcher Process. Please start the game Launcher before replacing or restoring the localization file.";
+            NewVersionAvailable = "Tool current version {0}, Online version {1}. \r\nDo you want to go to the repo to download the new version?";
         }
     }
 }

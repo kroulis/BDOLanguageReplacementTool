@@ -31,7 +31,6 @@ namespace BDOLangReplacement
         private bool cnFontInstalled = false;
         const string FontResWorkPlace = "BDOLangReplacement.FontResource.resources";
         private string BDOConfigPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Black Desert\GameOption.txt";
-        private string appVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
         public Form1()
         {
@@ -97,7 +96,7 @@ namespace BDOLangReplacement
                 srcLangBox.SelectedIndex = (int)conf.defaultLanguage - 1;
             }
             fromSteam.Checked = conf.isSteam;
-            ToolVersion.Text = appVersion;
+            ToolVersion.Text = Updater.getAssemblyVersion();
         }
 
         private void localizeComponents()
@@ -153,6 +152,15 @@ namespace BDOLangReplacement
 
         private void Form1_HandleCreated(object sender, EventArgs e)
         {
+            string onlineVersion = Updater.getOnlineVersion();
+            if (!Updater.isVersionMatch(onlineVersion))
+            {
+                if (MessageBox.Show(String.Format(loc.localize(Localization.FormComponent.NewVersionAvailable), Updater.getAssemblyVersion(), onlineVersion),
+                    "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    linkLabel1_LinkClicked(null, null);
+                }
+            }
             refreshLanguageVersion_Click(null, null);
             processCheck.Enabled = true;
         }
@@ -571,6 +579,11 @@ namespace BDOLangReplacement
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start("https://github.com/kroulis/BDOLanguageReplacementTool");
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
