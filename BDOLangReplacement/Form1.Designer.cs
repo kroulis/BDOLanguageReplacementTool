@@ -38,6 +38,8 @@ namespace BDOLangReplacement
             this.languageVersionBar = new System.Windows.Forms.ProgressBar();
             this.langList = new System.Windows.Forms.ListBox();
             this.changeLang = new System.Windows.Forms.TabPage();
+            this.label9 = new System.Windows.Forms.Label();
+            this.MergeBtn = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.replacementLog = new System.Windows.Forms.TextBox();
@@ -150,6 +152,8 @@ namespace BDOLangReplacement
             // 
             // changeLang
             // 
+            this.changeLang.Controls.Add(this.label9);
+            this.changeLang.Controls.Add(this.MergeBtn);
             this.changeLang.Controls.Add(this.label6);
             this.changeLang.Controls.Add(this.groupBox1);
             this.changeLang.Controls.Add(this.Restore);
@@ -169,6 +173,29 @@ namespace BDOLangReplacement
             this.changeLang.TabIndex = 1;
             this.changeLang.Text = "Language File Replacement";
             this.changeLang.UseVisualStyleBackColor = true;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Enabled = false;
+            this.label9.Location = new System.Drawing.Point(290, 85);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(68, 13);
+            this.label9.TabIndex = 13;
+            this.label9.Text = "Advanced  >";
+            this.label9.Visible = false;
+            // 
+            // MergeBtn
+            // 
+            this.MergeBtn.Enabled = false;
+            this.MergeBtn.Location = new System.Drawing.Point(361, 80);
+            this.MergeBtn.Name = "MergeBtn";
+            this.MergeBtn.Size = new System.Drawing.Size(75, 23);
+            this.MergeBtn.TabIndex = 12;
+            this.MergeBtn.TabStop = false;
+            this.MergeBtn.Text = "Merge";
+            this.MergeBtn.UseVisualStyleBackColor = true;
+            this.MergeBtn.Visible = false;
             // 
             // label6
             // 
@@ -442,6 +469,7 @@ namespace BDOLangReplacement
             // 
             // statusStrip1
             // 
+            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.processStatus,
             this.toolStripStatusLabel1,
@@ -573,6 +601,8 @@ namespace BDOLangReplacement
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.RadioButton TwcnFontSwitchButton;
         private System.Windows.Forms.RadioButton ZhcnFontSwitchButton;
+        private System.Windows.Forms.Button MergeBtn;
+        private System.Windows.Forms.Label label9;
     }
 }
 

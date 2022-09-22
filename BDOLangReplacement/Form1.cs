@@ -543,7 +543,7 @@ namespace BDOLangReplacement
                     // Write the font config
                     string fontConfig = File.ReadAllText(BDOConfigPath);
                     fontConfig = Regex.Replace(fontConfig, @"UIFontType = (\d{1})", "UIFontType = 0");
-                    File.WriteAllText(BDOConfigPath + ".test", fontConfig);
+                    File.WriteAllText(BDOConfigPath, fontConfig);
                 }
                 catch (Exception)
                 {

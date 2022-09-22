@@ -17,7 +17,7 @@ namespace BDOLangReplacement
         private const string TH_LANG_VERSION_URL = "https://dn.th.playblackdesert.com/UploadData/ads_files";
         private const string RU_LANG_VERSION_URL = "https://nez-o-dn.playblackdesert.com/UploadData/ads_files";
         private const string TR_LANG_VERSION_URL = "https://dn.tr.playblackdesert.com/UploadData/ads_files";
-        private const string SA_LANG_VERSION_URL = "http://blackdesert.cdn.playredfox.net/BlackDesert/Live/ads_files";
+        private const string SA_LANG_VERSION_URL = "https://sa-o-dn.playblackdesert.com/UploadData/ads_files";
         private const string GL_LANG_VERSION_URL = "http://dn.global-lab.playblackdesert.com/UploadData/ads_files";
 
         // Delimiters
@@ -191,9 +191,9 @@ namespace BDOLangReplacement
                     baseUrl = "https://dn.tr.playblackdesert.com/UploadData/ads/";
                     break;
                 case Language.SA_PT:
-                    return "http://blackdesert.cdn.playredfox.net/BlackDesert/Live/ads/languagedata_pt.loc";
+                    return "https://sa-o-dn.playblackdesert.com/UploadData/ads/languagedata_pt.loc";
                 case Language.SA_ES:
-                    return "http://blackdesert.cdn.playredfox.net/BlackDesert/Live/ads/languagedata_es.loc";
+                    return "https://sa-o-dn.playblackdesert.com/UploadData/ads/languagedata_es.loc";
                 case Language.GL_EN:
                 case Language.GL_TW:
                 case Language.GL_JP:
