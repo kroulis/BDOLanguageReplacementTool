@@ -78,6 +78,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Internals\Unzip.cs" />
     <Compile Include="src\Config.cs" />
     <Compile Include="FontResource.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -90,6 +91,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="src\HelperTool.cs" />
     <Compile Include="src\IniFile.cs" />
     <Compile Include="src\Languages.cs" />
     <Compile Include="src\Localization.cs" />
@@ -116,6 +118,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="BDOLangReplacement_TemporaryKey.pfx" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

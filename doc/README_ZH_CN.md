@@ -1,4 +1,4 @@
-# 《黑色沙漠》语言包替换文件
+# 《黑色沙漠》语言包替换文件 [![编译](https://github.com/kroulis/BDOLanguageReplacementTool/actions/workflows/dotnet.yml/badge.svg)](https://github.com/kroulis/BDOLanguageReplacementTool/actions/workflows/dotnet.yml) [![测试](https://github.com/kroulis/BDOLanguageReplacementTool/actions/workflows/unit_test.yml/badge.svg)](https://github.com/kroulis/BDOLanguageReplacementTool/actions/workflows/unit_test.yml)
 
 本程序可帮助您将已安装的黑色沙漠的默认语言文件包替换成任意其他服务器的语言包文件。 本工具目前支持：
 - NAEU Server （欧美服）
@@ -31,6 +31,10 @@
 ## 本工具自动保存您的选择
 
 本工具自动保存您上一次的选择。当您完成步骤4至步骤9一次后，下一次重新启动本工具，工具会自动帮您完成默认语言和替换语言的选择。
+
+## 于1.1版本增加的功能
+1. 增加了一键合并语言包的功能。 当语言包内缺少部分翻译时，在游戏内会显示为韩文或者显示为空。 本功能能将只存在于原先语言包内的词条复制到替换的语言包中以解决问题。这个功能在`替换语言包`分页中显示为`合并`。
+2. 增加了加密、解密、生成差别词条、合并语言包的功能。这些功能被放置在`高级工具`分页中。（如果需要使用此功能，您需要额外下载辅助工具包。程序内提供一键化的下载安装。 如果您对此工具感到好奇，您可以访问 [kroulis/BDOLangReplacementToolHelper](https://github.com/kroulis/BDOLangReplacementToolHelper)）
 
 ## 致谢
 

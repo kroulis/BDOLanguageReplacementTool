@@ -30,6 +30,7 @@ namespace BDOLangReplacement
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Waiting for execution");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.controlTab = new System.Windows.Forms.TabControl();
             this.lvi = new System.Windows.Forms.TabPage();
@@ -38,7 +39,9 @@ namespace BDOLangReplacement
             this.languageVersionBar = new System.Windows.Forms.ProgressBar();
             this.langList = new System.Windows.Forms.ListBox();
             this.changeLang = new System.Windows.Forms.TabPage();
-            this.label9 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.ScriptsBtn = new System.Windows.Forms.Button();
+            this.advancedText = new System.Windows.Forms.Label();
             this.MergeBtn = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -54,13 +57,45 @@ namespace BDOLangReplacement
             this.label3 = new System.Windows.Forms.Label();
             this.srcLangBox = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.advance = new System.Windows.Forms.TabPage();
+            this.advOpExecTreeView = new System.Windows.Forms.TreeView();
+            this.advOpGroup = new System.Windows.Forms.GroupBox();
+            this.advOpProgressBar = new System.Windows.Forms.ProgressBar();
+            this.executeHelperBtn = new System.Windows.Forms.Button();
+            this.advOpAdditionalFile2BrowseBtn = new System.Windows.Forms.Button();
+            this.advOpAdditionalFile2Input = new System.Windows.Forms.TextBox();
+            this.advOpAdditionalFile2Label = new System.Windows.Forms.Label();
+            this.advOpAdditionalFile1BrowseBtn = new System.Windows.Forms.Button();
+            this.advOpAdditionalFile1Input = new System.Windows.Forms.TextBox();
+            this.advOpAdditionalFile1Label = new System.Windows.Forms.Label();
+            this.advOpOutputBrowseBtn = new System.Windows.Forms.Button();
+            this.advOpOutputInput = new System.Windows.Forms.TextBox();
+            this.advOpOutputLabel = new System.Windows.Forms.Label();
+            this.advOpSourceBrowseBtn = new System.Windows.Forms.Button();
+            this.advOpSourceInput = new System.Windows.Forms.TextBox();
+            this.advOpSourceLabel = new System.Windows.Forms.Label();
+            this.advOpCodeLabel = new System.Windows.Forms.Label();
+            this.advOpCodeBox = new System.Windows.Forms.ComboBox();
+            this.helperToolCompTab = new System.Windows.Forms.GroupBox();
+            this.uninstallHelperToolBtn = new System.Windows.Forms.Button();
+            this.helperToolOnlineVerLabel = new System.Windows.Forms.Label();
+            this.helperToolOnlineText = new System.Windows.Forms.Label();
+            this.InstallUpdateHelperToolBtn = new System.Windows.Forms.Button();
+            this.helperToolStatusLabel = new System.Windows.Forms.Label();
+            this.helperToolLocalText = new System.Windows.Forms.Label();
             this.Fonts = new System.Windows.Forms.TabPage();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.exampleBox = new System.Windows.Forms.RichTextBox();
+            this.customFontBox = new System.Windows.Forms.GroupBox();
+            this.fontFileBrowse = new System.Windows.Forms.Button();
+            this.fontBrowse = new System.Windows.Forms.Button();
+            this.SetupCNFont = new System.Windows.Forms.Button();
+            this.fontInput = new System.Windows.Forms.TextBox();
+            this.embFontBox = new System.Windows.Forms.GroupBox();
+            this.customRadioBtn = new System.Windows.Forms.RadioButton();
             this.TwcnFontSwitchButton = new System.Windows.Forms.RadioButton();
             this.ZhcnFontSwitchButton = new System.Windows.Forms.RadioButton();
             this.CNFont = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.SetupCNFont = new System.Windows.Forms.Button();
             this.AboutTab = new System.Windows.Forms.TabPage();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.AboutTextBox = new System.Windows.Forms.TextBox();
@@ -74,12 +109,18 @@ namespace BDOLangReplacement
             this.downloadUpdate = new System.Windows.Forms.Timer(this.components);
             this.fontCheck = new System.Windows.Forms.Timer(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.helperToolProcess = new System.Diagnostics.Process();
+            this.fontDialog = new System.Windows.Forms.FontDialog();
             this.controlTab.SuspendLayout();
             this.lvi.SuspendLayout();
             this.changeLang.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.advance.SuspendLayout();
+            this.advOpGroup.SuspendLayout();
+            this.helperToolCompTab.SuspendLayout();
             this.Fonts.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.customFontBox.SuspendLayout();
+            this.embFontBox.SuspendLayout();
             this.AboutTab.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -89,6 +130,7 @@ namespace BDOLangReplacement
             // 
             this.controlTab.Controls.Add(this.lvi);
             this.controlTab.Controls.Add(this.changeLang);
+            this.controlTab.Controls.Add(this.advance);
             this.controlTab.Controls.Add(this.Fonts);
             this.controlTab.Controls.Add(this.AboutTab);
             this.controlTab.Location = new System.Drawing.Point(12, 110);
@@ -152,7 +194,9 @@ namespace BDOLangReplacement
             // 
             // changeLang
             // 
-            this.changeLang.Controls.Add(this.label9);
+            this.changeLang.Controls.Add(this.label11);
+            this.changeLang.Controls.Add(this.ScriptsBtn);
+            this.changeLang.Controls.Add(this.advancedText);
             this.changeLang.Controls.Add(this.MergeBtn);
             this.changeLang.Controls.Add(this.label6);
             this.changeLang.Controls.Add(this.groupBox1);
@@ -174,16 +218,35 @@ namespace BDOLangReplacement
             this.changeLang.Text = "Language File Replacement";
             this.changeLang.UseVisualStyleBackColor = true;
             // 
-            // label9
+            // label11
             // 
-            this.label9.AutoSize = true;
-            this.label9.Enabled = false;
-            this.label9.Location = new System.Drawing.Point(290, 85);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(68, 13);
-            this.label9.TabIndex = 13;
-            this.label9.Text = "Advanced  >";
-            this.label9.Visible = false;
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(345, 85);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(13, 13);
+            this.label11.TabIndex = 15;
+            this.label11.Text = ">";
+            // 
+            // ScriptsBtn
+            // 
+            this.ScriptsBtn.Enabled = false;
+            this.ScriptsBtn.Location = new System.Drawing.Point(442, 80);
+            this.ScriptsBtn.Name = "ScriptsBtn";
+            this.ScriptsBtn.Size = new System.Drawing.Size(75, 23);
+            this.ScriptsBtn.TabIndex = 14;
+            this.ScriptsBtn.TabStop = false;
+            this.ScriptsBtn.Text = "Script";
+            this.ScriptsBtn.UseVisualStyleBackColor = true;
+            // 
+            // advancedText
+            // 
+            this.advancedText.AutoSize = true;
+            this.advancedText.Location = new System.Drawing.Point(282, 86);
+            this.advancedText.Name = "advancedText";
+            this.advancedText.Size = new System.Drawing.Size(56, 13);
+            this.advancedText.TabIndex = 13;
+            this.advancedText.Text = "Advanced";
+            this.advancedText.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // MergeBtn
             // 
@@ -195,7 +258,7 @@ namespace BDOLangReplacement
             this.MergeBtn.TabStop = false;
             this.MergeBtn.Text = "Merge";
             this.MergeBtn.UseVisualStyleBackColor = true;
-            this.MergeBtn.Visible = false;
+            this.MergeBtn.Click += new System.EventHandler(this.MergeBtn_Click);
             // 
             // label6
             // 
@@ -335,9 +398,281 @@ namespace BDOLangReplacement
             this.label2.TabIndex = 0;
             this.label2.Text = "Select your current language in game:";
             // 
+            // advance
+            // 
+            this.advance.Controls.Add(this.advOpExecTreeView);
+            this.advance.Controls.Add(this.advOpGroup);
+            this.advance.Controls.Add(this.helperToolCompTab);
+            this.advance.Location = new System.Drawing.Point(4, 22);
+            this.advance.Name = "advance";
+            this.advance.Size = new System.Drawing.Size(584, 303);
+            this.advance.TabIndex = 4;
+            this.advance.Text = "Advance";
+            this.advance.UseVisualStyleBackColor = true;
+            // 
+            // advOpExecTreeView
+            // 
+            this.advOpExecTreeView.Location = new System.Drawing.Point(328, 9);
+            this.advOpExecTreeView.Name = "advOpExecTreeView";
+            treeNode1.Name = "NoResult";
+            treeNode1.Text = "Waiting for execution";
+            this.advOpExecTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode1});
+            this.advOpExecTreeView.Size = new System.Drawing.Size(244, 291);
+            this.advOpExecTreeView.TabIndex = 2;
+            // 
+            // advOpGroup
+            // 
+            this.advOpGroup.Controls.Add(this.advOpProgressBar);
+            this.advOpGroup.Controls.Add(this.executeHelperBtn);
+            this.advOpGroup.Controls.Add(this.advOpAdditionalFile2BrowseBtn);
+            this.advOpGroup.Controls.Add(this.advOpAdditionalFile2Input);
+            this.advOpGroup.Controls.Add(this.advOpAdditionalFile2Label);
+            this.advOpGroup.Controls.Add(this.advOpAdditionalFile1BrowseBtn);
+            this.advOpGroup.Controls.Add(this.advOpAdditionalFile1Input);
+            this.advOpGroup.Controls.Add(this.advOpAdditionalFile1Label);
+            this.advOpGroup.Controls.Add(this.advOpOutputBrowseBtn);
+            this.advOpGroup.Controls.Add(this.advOpOutputInput);
+            this.advOpGroup.Controls.Add(this.advOpOutputLabel);
+            this.advOpGroup.Controls.Add(this.advOpSourceBrowseBtn);
+            this.advOpGroup.Controls.Add(this.advOpSourceInput);
+            this.advOpGroup.Controls.Add(this.advOpSourceLabel);
+            this.advOpGroup.Controls.Add(this.advOpCodeLabel);
+            this.advOpGroup.Controls.Add(this.advOpCodeBox);
+            this.advOpGroup.Location = new System.Drawing.Point(3, 86);
+            this.advOpGroup.Name = "advOpGroup";
+            this.advOpGroup.Size = new System.Drawing.Size(323, 214);
+            this.advOpGroup.TabIndex = 1;
+            this.advOpGroup.TabStop = false;
+            this.advOpGroup.Text = "Advanced Operations";
+            // 
+            // advOpProgressBar
+            // 
+            this.advOpProgressBar.Location = new System.Drawing.Point(101, 169);
+            this.advOpProgressBar.Name = "advOpProgressBar";
+            this.advOpProgressBar.Size = new System.Drawing.Size(213, 29);
+            this.advOpProgressBar.TabIndex = 15;
+            // 
+            // executeHelperBtn
+            // 
+            this.executeHelperBtn.Location = new System.Drawing.Point(9, 168);
+            this.executeHelperBtn.Name = "executeHelperBtn";
+            this.executeHelperBtn.Size = new System.Drawing.Size(84, 29);
+            this.executeHelperBtn.TabIndex = 14;
+            this.executeHelperBtn.Text = "Execute";
+            this.executeHelperBtn.UseVisualStyleBackColor = true;
+            this.executeHelperBtn.Click += new System.EventHandler(this.executeHelperBtn_Click);
+            // 
+            // advOpAdditionalFile2BrowseBtn
+            // 
+            this.advOpAdditionalFile2BrowseBtn.Location = new System.Drawing.Point(258, 128);
+            this.advOpAdditionalFile2BrowseBtn.Name = "advOpAdditionalFile2BrowseBtn";
+            this.advOpAdditionalFile2BrowseBtn.Size = new System.Drawing.Size(57, 23);
+            this.advOpAdditionalFile2BrowseBtn.TabIndex = 13;
+            this.advOpAdditionalFile2BrowseBtn.Text = "Browse";
+            this.advOpAdditionalFile2BrowseBtn.UseVisualStyleBackColor = true;
+            this.advOpAdditionalFile2BrowseBtn.Click += new System.EventHandler(this.advOpAdditionalFile2BrowseBtn_Click);
+            // 
+            // advOpAdditionalFile2Input
+            // 
+            this.advOpAdditionalFile2Input.Location = new System.Drawing.Point(63, 130);
+            this.advOpAdditionalFile2Input.Name = "advOpAdditionalFile2Input";
+            this.advOpAdditionalFile2Input.Size = new System.Drawing.Size(194, 20);
+            this.advOpAdditionalFile2Input.TabIndex = 12;
+            // 
+            // advOpAdditionalFile2Label
+            // 
+            this.advOpAdditionalFile2Label.AutoSize = true;
+            this.advOpAdditionalFile2Label.Location = new System.Drawing.Point(4, 134);
+            this.advOpAdditionalFile2Label.Name = "advOpAdditionalFile2Label";
+            this.advOpAdditionalFile2Label.Size = new System.Drawing.Size(62, 13);
+            this.advOpAdditionalFile2Label.TabIndex = 11;
+            this.advOpAdditionalFile2Label.Text = "Additional2:";
+            // 
+            // advOpAdditionalFile1BrowseBtn
+            // 
+            this.advOpAdditionalFile1BrowseBtn.Location = new System.Drawing.Point(258, 100);
+            this.advOpAdditionalFile1BrowseBtn.Name = "advOpAdditionalFile1BrowseBtn";
+            this.advOpAdditionalFile1BrowseBtn.Size = new System.Drawing.Size(57, 23);
+            this.advOpAdditionalFile1BrowseBtn.TabIndex = 10;
+            this.advOpAdditionalFile1BrowseBtn.Text = "Browse";
+            this.advOpAdditionalFile1BrowseBtn.UseVisualStyleBackColor = true;
+            this.advOpAdditionalFile1BrowseBtn.Click += new System.EventHandler(this.advOpAdditionalFile1BrowseBtn_Click);
+            // 
+            // advOpAdditionalFile1Input
+            // 
+            this.advOpAdditionalFile1Input.Location = new System.Drawing.Point(63, 102);
+            this.advOpAdditionalFile1Input.Name = "advOpAdditionalFile1Input";
+            this.advOpAdditionalFile1Input.Size = new System.Drawing.Size(194, 20);
+            this.advOpAdditionalFile1Input.TabIndex = 9;
+            // 
+            // advOpAdditionalFile1Label
+            // 
+            this.advOpAdditionalFile1Label.AutoSize = true;
+            this.advOpAdditionalFile1Label.Location = new System.Drawing.Point(4, 106);
+            this.advOpAdditionalFile1Label.Name = "advOpAdditionalFile1Label";
+            this.advOpAdditionalFile1Label.Size = new System.Drawing.Size(62, 13);
+            this.advOpAdditionalFile1Label.TabIndex = 8;
+            this.advOpAdditionalFile1Label.Text = "Additional1:";
+            // 
+            // advOpOutputBrowseBtn
+            // 
+            this.advOpOutputBrowseBtn.Location = new System.Drawing.Point(258, 72);
+            this.advOpOutputBrowseBtn.Name = "advOpOutputBrowseBtn";
+            this.advOpOutputBrowseBtn.Size = new System.Drawing.Size(57, 23);
+            this.advOpOutputBrowseBtn.TabIndex = 7;
+            this.advOpOutputBrowseBtn.Text = "Browse";
+            this.advOpOutputBrowseBtn.UseVisualStyleBackColor = true;
+            this.advOpOutputBrowseBtn.Click += new System.EventHandler(this.advOpOutputBrowseBtn_Click);
+            // 
+            // advOpOutputInput
+            // 
+            this.advOpOutputInput.Location = new System.Drawing.Point(63, 74);
+            this.advOpOutputInput.Name = "advOpOutputInput";
+            this.advOpOutputInput.Size = new System.Drawing.Size(194, 20);
+            this.advOpOutputInput.TabIndex = 6;
+            // 
+            // advOpOutputLabel
+            // 
+            this.advOpOutputLabel.AutoSize = true;
+            this.advOpOutputLabel.Location = new System.Drawing.Point(4, 78);
+            this.advOpOutputLabel.Name = "advOpOutputLabel";
+            this.advOpOutputLabel.Size = new System.Drawing.Size(42, 13);
+            this.advOpOutputLabel.TabIndex = 5;
+            this.advOpOutputLabel.Text = "Output:";
+            // 
+            // advOpSourceBrowseBtn
+            // 
+            this.advOpSourceBrowseBtn.Location = new System.Drawing.Point(258, 45);
+            this.advOpSourceBrowseBtn.Name = "advOpSourceBrowseBtn";
+            this.advOpSourceBrowseBtn.Size = new System.Drawing.Size(57, 23);
+            this.advOpSourceBrowseBtn.TabIndex = 4;
+            this.advOpSourceBrowseBtn.Text = "Browse";
+            this.advOpSourceBrowseBtn.UseVisualStyleBackColor = true;
+            this.advOpSourceBrowseBtn.Click += new System.EventHandler(this.advOpSourceBrowseBtn_Click);
+            // 
+            // advOpSourceInput
+            // 
+            this.advOpSourceInput.Location = new System.Drawing.Point(63, 46);
+            this.advOpSourceInput.Name = "advOpSourceInput";
+            this.advOpSourceInput.Size = new System.Drawing.Size(194, 20);
+            this.advOpSourceInput.TabIndex = 3;
+            // 
+            // advOpSourceLabel
+            // 
+            this.advOpSourceLabel.AutoSize = true;
+            this.advOpSourceLabel.Location = new System.Drawing.Point(4, 50);
+            this.advOpSourceLabel.Name = "advOpSourceLabel";
+            this.advOpSourceLabel.Size = new System.Drawing.Size(44, 13);
+            this.advOpSourceLabel.TabIndex = 2;
+            this.advOpSourceLabel.Text = "Source:";
+            // 
+            // advOpCodeLabel
+            // 
+            this.advOpCodeLabel.AutoSize = true;
+            this.advOpCodeLabel.Location = new System.Drawing.Point(4, 22);
+            this.advOpCodeLabel.Name = "advOpCodeLabel";
+            this.advOpCodeLabel.Size = new System.Drawing.Size(56, 13);
+            this.advOpCodeLabel.TabIndex = 1;
+            this.advOpCodeLabel.Text = "Operation:";
+            // 
+            // advOpCodeBox
+            // 
+            this.advOpCodeBox.FormattingEnabled = true;
+            this.advOpCodeBox.Items.AddRange(new object[] {
+            "Encrypt",
+            "Decrypt",
+            "Diff",
+            "Merge",
+            "Translate (Traditional Chinese to Simplified Chinese)"});
+            this.advOpCodeBox.Location = new System.Drawing.Point(63, 18);
+            this.advOpCodeBox.Name = "advOpCodeBox";
+            this.advOpCodeBox.Size = new System.Drawing.Size(252, 21);
+            this.advOpCodeBox.TabIndex = 0;
+            // 
+            // helperToolCompTab
+            // 
+            this.helperToolCompTab.Controls.Add(this.uninstallHelperToolBtn);
+            this.helperToolCompTab.Controls.Add(this.helperToolOnlineVerLabel);
+            this.helperToolCompTab.Controls.Add(this.helperToolOnlineText);
+            this.helperToolCompTab.Controls.Add(this.InstallUpdateHelperToolBtn);
+            this.helperToolCompTab.Controls.Add(this.helperToolStatusLabel);
+            this.helperToolCompTab.Controls.Add(this.helperToolLocalText);
+            this.helperToolCompTab.Location = new System.Drawing.Point(3, 3);
+            this.helperToolCompTab.Name = "helperToolCompTab";
+            this.helperToolCompTab.Size = new System.Drawing.Size(323, 77);
+            this.helperToolCompTab.TabIndex = 0;
+            this.helperToolCompTab.TabStop = false;
+            this.helperToolCompTab.Text = "HelperTool Status";
+            // 
+            // uninstallHelperToolBtn
+            // 
+            this.uninstallHelperToolBtn.Enabled = false;
+            this.uninstallHelperToolBtn.Location = new System.Drawing.Point(177, 44);
+            this.uninstallHelperToolBtn.Name = "uninstallHelperToolBtn";
+            this.uninstallHelperToolBtn.Size = new System.Drawing.Size(100, 23);
+            this.uninstallHelperToolBtn.TabIndex = 5;
+            this.uninstallHelperToolBtn.Text = "Uninstall";
+            this.uninstallHelperToolBtn.UseVisualStyleBackColor = false;
+            this.uninstallHelperToolBtn.Click += new System.EventHandler(this.uninstallHelperToolBtn_Click);
+            // 
+            // helperToolOnlineVerLabel
+            // 
+            this.helperToolOnlineVerLabel.AutoSize = true;
+            this.helperToolOnlineVerLabel.ForeColor = System.Drawing.Color.Red;
+            this.helperToolOnlineVerLabel.Location = new System.Drawing.Point(99, 49);
+            this.helperToolOnlineVerLabel.Name = "helperToolOnlineVerLabel";
+            this.helperToolOnlineVerLabel.Size = new System.Drawing.Size(57, 13);
+            this.helperToolOnlineVerLabel.TabIndex = 4;
+            this.helperToolOnlineVerLabel.Text = "Not Found";
+            // 
+            // helperToolOnlineText
+            // 
+            this.helperToolOnlineText.AutoSize = true;
+            this.helperToolOnlineText.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.helperToolOnlineText.Location = new System.Drawing.Point(6, 49);
+            this.helperToolOnlineText.Name = "helperToolOnlineText";
+            this.helperToolOnlineText.Size = new System.Drawing.Size(78, 13);
+            this.helperToolOnlineText.TabIndex = 3;
+            this.helperToolOnlineText.Text = "Online Version:";
+            // 
+            // InstallUpdateHelperToolBtn
+            // 
+            this.InstallUpdateHelperToolBtn.Enabled = false;
+            this.InstallUpdateHelperToolBtn.Location = new System.Drawing.Point(177, 19);
+            this.InstallUpdateHelperToolBtn.Name = "InstallUpdateHelperToolBtn";
+            this.InstallUpdateHelperToolBtn.Size = new System.Drawing.Size(100, 23);
+            this.InstallUpdateHelperToolBtn.TabIndex = 2;
+            this.InstallUpdateHelperToolBtn.Text = "Install/Update";
+            this.InstallUpdateHelperToolBtn.UseVisualStyleBackColor = true;
+            this.InstallUpdateHelperToolBtn.Click += new System.EventHandler(this.InstallUpdateHelperToolBtn_Click);
+            // 
+            // helperToolStatusLabel
+            // 
+            this.helperToolStatusLabel.AutoSize = true;
+            this.helperToolStatusLabel.ForeColor = System.Drawing.Color.Red;
+            this.helperToolStatusLabel.Location = new System.Drawing.Point(99, 24);
+            this.helperToolStatusLabel.Name = "helperToolStatusLabel";
+            this.helperToolStatusLabel.Size = new System.Drawing.Size(57, 13);
+            this.helperToolStatusLabel.TabIndex = 1;
+            this.helperToolStatusLabel.Text = "Not Found";
+            // 
+            // helperToolLocalText
+            // 
+            this.helperToolLocalText.AutoSize = true;
+            this.helperToolLocalText.Location = new System.Drawing.Point(6, 24);
+            this.helperToolLocalText.Name = "helperToolLocalText";
+            this.helperToolLocalText.Size = new System.Drawing.Size(87, 13);
+            this.helperToolLocalText.TabIndex = 0;
+            this.helperToolLocalText.Text = "Installed Version:";
+            // 
             // Fonts
             // 
-            this.Fonts.Controls.Add(this.groupBox2);
+            this.Fonts.Controls.Add(this.exampleBox);
+            this.Fonts.Controls.Add(this.customFontBox);
+            this.Fonts.Controls.Add(this.embFontBox);
+            this.Fonts.Controls.Add(this.CNFont);
+            this.Fonts.Controls.Add(this.label7);
             this.Fonts.Location = new System.Drawing.Point(4, 22);
             this.Fonts.Name = "Fonts";
             this.Fonts.Size = new System.Drawing.Size(584, 303);
@@ -345,25 +680,93 @@ namespace BDOLangReplacement
             this.Fonts.Text = "Fonts Setup";
             this.Fonts.UseVisualStyleBackColor = true;
             // 
-            // groupBox2
+            // exampleBox
             // 
-            this.groupBox2.Controls.Add(this.TwcnFontSwitchButton);
-            this.groupBox2.Controls.Add(this.ZhcnFontSwitchButton);
-            this.groupBox2.Controls.Add(this.CNFont);
-            this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Controls.Add(this.SetupCNFont);
-            this.groupBox2.Location = new System.Drawing.Point(12, 13);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(169, 124);
-            this.groupBox2.TabIndex = 0;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "TW_CN";
+            this.exampleBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.exampleBox.Location = new System.Drawing.Point(15, 142);
+            this.exampleBox.Name = "exampleBox";
+            this.exampleBox.ReadOnly = true;
+            this.exampleBox.Size = new System.Drawing.Size(556, 150);
+            this.exampleBox.TabIndex = 3;
+            this.exampleBox.Text = resources.GetString("exampleBox.Text");
+            // 
+            // customFontBox
+            // 
+            this.customFontBox.Controls.Add(this.fontFileBrowse);
+            this.customFontBox.Controls.Add(this.fontBrowse);
+            this.customFontBox.Controls.Add(this.SetupCNFont);
+            this.customFontBox.Controls.Add(this.fontInput);
+            this.customFontBox.Location = new System.Drawing.Point(182, 36);
+            this.customFontBox.Name = "customFontBox";
+            this.customFontBox.Size = new System.Drawing.Size(389, 100);
+            this.customFontBox.TabIndex = 1;
+            this.customFontBox.TabStop = false;
+            this.customFontBox.Text = "Custom Font";
+            // 
+            // fontFileBrowse
+            // 
+            this.fontFileBrowse.Location = new System.Drawing.Point(106, 65);
+            this.fontFileBrowse.Name = "fontFileBrowse";
+            this.fontFileBrowse.Size = new System.Drawing.Size(85, 23);
+            this.fontFileBrowse.TabIndex = 2;
+            this.fontFileBrowse.Text = "Browse File";
+            this.fontFileBrowse.UseVisualStyleBackColor = true;
+            this.fontFileBrowse.Click += new System.EventHandler(this.fontFileBrowse_Click);
+            // 
+            // fontBrowse
+            // 
+            this.fontBrowse.Location = new System.Drawing.Point(15, 65);
+            this.fontBrowse.Name = "fontBrowse";
+            this.fontBrowse.Size = new System.Drawing.Size(85, 23);
+            this.fontBrowse.TabIndex = 1;
+            this.fontBrowse.Text = "Browse Fonts";
+            this.fontBrowse.UseVisualStyleBackColor = true;
+            this.fontBrowse.Click += new System.EventHandler(this.fontBrowse_Click);
+            // 
+            // SetupCNFont
+            // 
+            this.SetupCNFont.Location = new System.Drawing.Point(197, 65);
+            this.SetupCNFont.Name = "SetupCNFont";
+            this.SetupCNFont.Size = new System.Drawing.Size(186, 23);
+            this.SetupCNFont.TabIndex = 0;
+            this.SetupCNFont.Text = "Install OR Remove pearl.ttf";
+            this.SetupCNFont.UseVisualStyleBackColor = true;
+            this.SetupCNFont.Click += new System.EventHandler(this.SetupCNFont_Click);
+            // 
+            // fontInput
+            // 
+            this.fontInput.Location = new System.Drawing.Point(15, 30);
+            this.fontInput.Name = "fontInput";
+            this.fontInput.Size = new System.Drawing.Size(368, 20);
+            this.fontInput.TabIndex = 0;
+            // 
+            // embFontBox
+            // 
+            this.embFontBox.Controls.Add(this.customRadioBtn);
+            this.embFontBox.Controls.Add(this.TwcnFontSwitchButton);
+            this.embFontBox.Controls.Add(this.ZhcnFontSwitchButton);
+            this.embFontBox.Location = new System.Drawing.Point(15, 36);
+            this.embFontBox.Name = "embFontBox";
+            this.embFontBox.Size = new System.Drawing.Size(161, 100);
+            this.embFontBox.TabIndex = 0;
+            this.embFontBox.TabStop = false;
+            this.embFontBox.Text = "Embedded Fonts";
+            // 
+            // customRadioBtn
+            // 
+            this.customRadioBtn.AutoSize = true;
+            this.customRadioBtn.Location = new System.Drawing.Point(14, 65);
+            this.customRadioBtn.Name = "customRadioBtn";
+            this.customRadioBtn.Size = new System.Drawing.Size(84, 17);
+            this.customRadioBtn.TabIndex = 0;
+            this.customRadioBtn.Text = "Custom Font";
+            this.customRadioBtn.UseVisualStyleBackColor = true;
             // 
             // TwcnFontSwitchButton
             // 
             this.TwcnFontSwitchButton.AutoSize = true;
             this.TwcnFontSwitchButton.Checked = true;
-            this.TwcnFontSwitchButton.Location = new System.Drawing.Point(28, 72);
+            this.TwcnFontSwitchButton.Location = new System.Drawing.Point(14, 42);
             this.TwcnFontSwitchButton.Name = "TwcnFontSwitchButton";
             this.TwcnFontSwitchButton.Size = new System.Drawing.Size(115, 17);
             this.TwcnFontSwitchButton.TabIndex = 4;
@@ -374,11 +777,10 @@ namespace BDOLangReplacement
             // ZhcnFontSwitchButton
             // 
             this.ZhcnFontSwitchButton.AutoSize = true;
-            this.ZhcnFontSwitchButton.Location = new System.Drawing.Point(28, 49);
+            this.ZhcnFontSwitchButton.Location = new System.Drawing.Point(14, 19);
             this.ZhcnFontSwitchButton.Name = "ZhcnFontSwitchButton";
             this.ZhcnFontSwitchButton.Size = new System.Drawing.Size(110, 17);
             this.ZhcnFontSwitchButton.TabIndex = 3;
-            this.ZhcnFontSwitchButton.TabStop = true;
             this.ZhcnFontSwitchButton.Text = "Simplified Chinese";
             this.ZhcnFontSwitchButton.UseVisualStyleBackColor = true;
             // 
@@ -386,7 +788,7 @@ namespace BDOLangReplacement
             // 
             this.CNFont.AutoSize = true;
             this.CNFont.ForeColor = System.Drawing.Color.Red;
-            this.CNFont.Location = new System.Drawing.Point(81, 24);
+            this.CNFont.Location = new System.Drawing.Point(82, 11);
             this.CNFont.Name = "CNFont";
             this.CNFont.Size = new System.Drawing.Size(57, 13);
             this.CNFont.TabIndex = 2;
@@ -395,21 +797,11 @@ namespace BDOLangReplacement
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(13, 24);
+            this.label7.Location = new System.Drawing.Point(12, 11);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(64, 13);
             this.label7.TabIndex = 1;
             this.label7.Text = "Font Status:";
-            // 
-            // SetupCNFont
-            // 
-            this.SetupCNFont.Location = new System.Drawing.Point(13, 95);
-            this.SetupCNFont.Name = "SetupCNFont";
-            this.SetupCNFont.Size = new System.Drawing.Size(146, 23);
-            this.SetupCNFont.TabIndex = 0;
-            this.SetupCNFont.Text = "Install OR Remove pearl.ttf";
-            this.SetupCNFont.UseVisualStyleBackColor = true;
-            this.SetupCNFont.Click += new System.EventHandler(this.SetupCNFont_Click);
             // 
             // AboutTab
             // 
@@ -525,6 +917,17 @@ namespace BDOLangReplacement
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
+            // helperToolProcess
+            // 
+            this.helperToolProcess.StartInfo.Domain = "";
+            this.helperToolProcess.StartInfo.LoadUserProfile = false;
+            this.helperToolProcess.StartInfo.Password = null;
+            this.helperToolProcess.StartInfo.RedirectStandardOutput = true;
+            this.helperToolProcess.StartInfo.StandardErrorEncoding = null;
+            this.helperToolProcess.StartInfo.StandardOutputEncoding = null;
+            this.helperToolProcess.StartInfo.UserName = "";
+            this.helperToolProcess.SynchronizingObject = this;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -545,9 +948,17 @@ namespace BDOLangReplacement
             this.changeLang.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.advance.ResumeLayout(false);
+            this.advOpGroup.ResumeLayout(false);
+            this.advOpGroup.PerformLayout();
+            this.helperToolCompTab.ResumeLayout(false);
+            this.helperToolCompTab.PerformLayout();
             this.Fonts.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.Fonts.PerformLayout();
+            this.customFontBox.ResumeLayout(false);
+            this.customFontBox.PerformLayout();
+            this.embFontBox.ResumeLayout(false);
+            this.embFontBox.PerformLayout();
             this.AboutTab.ResumeLayout(false);
             this.AboutTab.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
@@ -586,7 +997,7 @@ namespace BDOLangReplacement
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Timer downloadUpdate;
         private System.Windows.Forms.TabPage Fonts;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox embFontBox;
         private System.Windows.Forms.Label CNFont;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button SetupCNFont;
@@ -602,7 +1013,43 @@ namespace BDOLangReplacement
         private System.Windows.Forms.RadioButton TwcnFontSwitchButton;
         private System.Windows.Forms.RadioButton ZhcnFontSwitchButton;
         private System.Windows.Forms.Button MergeBtn;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label advancedText;
+        private System.Windows.Forms.TabPage advance;
+        private System.Windows.Forms.GroupBox helperToolCompTab;
+        private System.Windows.Forms.Button InstallUpdateHelperToolBtn;
+        private System.Windows.Forms.Label helperToolStatusLabel;
+        private System.Windows.Forms.Label helperToolLocalText;
+        private System.Windows.Forms.GroupBox advOpGroup;
+        private System.Windows.Forms.Label advOpCodeLabel;
+        private System.Windows.Forms.ComboBox advOpCodeBox;
+        private System.Windows.Forms.Button uninstallHelperToolBtn;
+        private System.Windows.Forms.Label helperToolOnlineVerLabel;
+        private System.Windows.Forms.Label helperToolOnlineText;
+        private System.Windows.Forms.TextBox advOpOutputInput;
+        private System.Windows.Forms.Label advOpOutputLabel;
+        private System.Windows.Forms.Button advOpSourceBrowseBtn;
+        private System.Windows.Forms.TextBox advOpSourceInput;
+        private System.Windows.Forms.Label advOpSourceLabel;
+        private System.Windows.Forms.Button advOpOutputBrowseBtn;
+        private System.Windows.Forms.TextBox advOpAdditionalFile1Input;
+        private System.Windows.Forms.Label advOpAdditionalFile1Label;
+        private System.Windows.Forms.Button advOpAdditionalFile1BrowseBtn;
+        private System.Windows.Forms.ProgressBar advOpProgressBar;
+        private System.Windows.Forms.Button executeHelperBtn;
+        private System.Windows.Forms.Button advOpAdditionalFile2BrowseBtn;
+        private System.Windows.Forms.TextBox advOpAdditionalFile2Input;
+        private System.Windows.Forms.Label advOpAdditionalFile2Label;
+        private System.Diagnostics.Process helperToolProcess;
+        private System.Windows.Forms.Button ScriptsBtn;
+        private System.Windows.Forms.TreeView advOpExecTreeView;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.GroupBox customFontBox;
+        private System.Windows.Forms.FontDialog fontDialog;
+        private System.Windows.Forms.RichTextBox exampleBox;
+        private System.Windows.Forms.Button fontBrowse;
+        private System.Windows.Forms.TextBox fontInput;
+        private System.Windows.Forms.Button fontFileBrowse;
+        private System.Windows.Forms.RadioButton customRadioBtn;
     }
 }
 

@@ -15,6 +15,8 @@ using System.Reflection;
 using System.Resources;
 using System.Text.RegularExpressions;
 using BDOLangReplacement.Localizations;
+using System.Drawing.Text;
+using System.Runtime.InteropServices;
 
 namespace BDOLangReplacement
 {
@@ -28,9 +30,10 @@ namespace BDOLangReplacement
         private bool bdoLauncherFound = false;
         private bool replacementInProgress = false;
         private bool downloadLog = false;
-        private bool cnFontInstalled = false;
+        private bool fontInstalled = false;
         const string FontResWorkPlace = "BDOLangReplacement.FontResource.resources";
         private string BDOConfigPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Black Desert\GameOption.txt";
+        private const string helperToolPath = tempFolder + HelperTool.HELPERTOOL_EXE_NAME;
 
         public Form1()
         {
@@ -106,6 +109,7 @@ namespace BDOLangReplacement
             controlTab.TabPages[1].Text = loc.localize(Localization.FormComponent.Tab2Name);
             controlTab.TabPages[2].Text = loc.localize(Localization.FormComponent.Tab3Name);
             controlTab.TabPages[3].Text = loc.localize(Localization.FormComponent.Tab4Name);
+            controlTab.TabPages[4].Text = loc.localize(Localization.FormComponent.Tab5Name);
             label1.Text = loc.localize(Localization.FormComponent.Tab1LabelText);
             refreshLanguageVersion.Text = loc.localize(Localization.FormComponent.Tab1RefreshBtnText);
             label2.Text = loc.localize(Localization.FormComponent.Tab2GameLanguage);
@@ -115,11 +119,47 @@ namespace BDOLangReplacement
             startLauncher.Text = loc.localize(Localization.FormComponent.Tab2StartLaunchBtnText);
             Replace.Text = loc.localize(Localization.FormComponent.Tab2ReplaceBtnText);
             Restore.Text = loc.localize(Localization.FormComponent.Tab2RecoverBtnText);
-            SetupCNFont.Text = loc.localize(Localization.FormComponent.Tab3CNFontBtnText);
-            label7.Text = loc.localize(Localization.FormComponent.Tab3FontStatus);
-            AboutTextBox.Text = loc.localize(Localization.FormComponent.Tab4AboutText);
-            ZhcnFontSwitchButton.Text = loc.localize(Localization.FormComponent.Tab3FontTypeSimplifiedChinese);
-            TwcnFontSwitchButton.Text = loc.localize(Localization.FormComponent.Tab3FontTypeTraditionalChinese);
+            advancedText.Text = loc.localize(Localization.FormComponent.Tab2AdvancedText);
+            MergeBtn.Text = loc.localize(Localization.FormComponent.Tab2MergeBtnText);
+            ScriptsBtn.Text = loc.localize(Localization.FormComponent.Tab2ScriptBtnText);
+            helperToolCompTab.Text = loc.localize(Localization.FormComponent.Tab3HelperToolStatusText);
+            helperToolLocalText.Text = loc.localize(Localization.FormComponent.Tab3HelperToolLocalVersionText);
+            helperToolOnlineText.Text = loc.localize(Localization.FormComponent.Tab3HelperToolOnlineVersionText);
+            helperToolStatusLabel.Text = loc.localize(Localization.FormComponent.Tab3HelperToolVersionUnavailable);
+            helperToolOnlineVerLabel.Text = loc.localize(Localization.FormComponent.Tab3HelperToolVersionUnavailable);
+            InstallUpdateHelperToolBtn.Text = loc.localize(Localization.FormComponent.Tab3InstallUpdateHelperToolBtnText);
+            uninstallHelperToolBtn.Text = loc.localize(Localization.FormComponent.Tab3UninstallHelperToolBtnText);
+            advOpGroup.Text = loc.localize(Localization.FormComponent.Tab3AdvancedOperationGroupText);
+            advOpCodeLabel.Text = loc.localize(Localization.FormComponent.Tab3AdvancedOpCodeLabelText);
+            advOpSourceLabel.Text = loc.localize(Localization.FormComponent.Tab3AdvancedOpSrcFileLabelText);
+            advOpOutputLabel.Text = loc.localize(Localization.FormComponent.Tab3AdvancedOpOutFileLabelText);
+            advOpAdditionalFile1Label.Text = loc.localize(Localization.FormComponent.Tab3AdvancedOpAddtionalFile1Text);
+            advOpAdditionalFile2Label.Text = loc.localize(Localization.FormComponent.Tab3AdvancedOpAddtionalFile2Text);
+            executeHelperBtn.Text = loc.localize(Localization.FormComponent.Tab3AdvancedOpExecuteBtnText);
+            advOpSourceBrowseBtn.Text = loc.localize(Localization.FormComponent.Tab3AdvancedOpBrowseBtnText);
+            advOpOutputBrowseBtn.Text = loc.localize(Localization.FormComponent.Tab3AdvancedOpBrowseBtnText);
+            advOpAdditionalFile1BrowseBtn.Text = loc.localize(Localization.FormComponent.Tab3AdvancedOpBrowseBtnText);
+            advOpAdditionalFile2BrowseBtn.Text = loc.localize(Localization.FormComponent.Tab3AdvancedOpBrowseBtnText);
+            {
+                int opCodeSelect = advOpCodeBox.SelectedIndex;
+                string[] items = loc.localize(Localization.FormComponent.Tab3AdvancedOpCodeSelectBoxItems).Split('\n');
+                advOpCodeBox.Items.Clear();
+                foreach (string item in items)
+                {
+                    advOpCodeBox.Items.Add(item);
+                }
+                advOpCodeBox.SelectedIndex = opCodeSelect;
+            }
+            SetupCNFont.Text = loc.localize(Localization.FormComponent.Tab4CNFontBtnText);
+            label7.Text = loc.localize(Localization.FormComponent.Tab4FontStatus);
+            embFontBox.Text = loc.localize(Localization.FormComponent.Tab4EmbeddedFontText);
+            ZhcnFontSwitchButton.Text = loc.localize(Localization.FormComponent.Tab4FontTypeSimplifiedChinese);
+            TwcnFontSwitchButton.Text = loc.localize(Localization.FormComponent.Tab4FontTypeTraditionalChinese);
+            customRadioBtn.Text = loc.localize(Localization.FormComponent.Tab4CustomFontText);
+            customFontBox.Text = loc.localize(Localization.FormComponent.Tab4CustomFontBoxText);
+            fontBrowse.Text = loc.localize(Localization.FormComponent.Tab4BrowseFontBtnText);
+            fontFileBrowse.Text = loc.localize(Localization.FormComponent.Tab4BrowseFontFileBtnText);
+            AboutTextBox.Text = loc.localize(Localization.FormComponent.Tab5AboutText);
         }
 
         private string ConfigFilePath()
@@ -163,6 +203,48 @@ namespace BDOLangReplacement
             }
             refreshLanguageVersion_Click(null, null);
             processCheck.Enabled = true;
+            if (File.Exists(helperToolPath))
+            {
+                Thread th = new Thread(new ThreadStart(updateHelperToolVersion));
+                th.Start();
+            }
+            else
+            {
+                InstallUpdateHelperToolBtn.Enabled = true;
+            }
+            string helperToolOnlineVersion = HelperTool.getOnlineVersion();
+            if (!helperToolOnlineVersion.Equals(""))
+            {
+                helperToolOnlineVerLabel.Text = helperToolOnlineVersion;
+                helperToolOnlineVerLabel.ForeColor = Color.Green;
+            }
+        }
+
+        private void updateHelperToolVersion()
+        {
+            string version = HelperTool.getLocalVersion(helperToolPath);
+            Action setUninstallBtnAvailable = delegate { uninstallHelperToolBtn.Enabled = true; };
+            Action disableUninstallBtn = delegate { uninstallHelperToolBtn.Enabled = false; };
+            if (!version.Equals(""))
+            {
+                Action setHelperToolVersion = delegate { 
+                    helperToolStatusLabel.Text = version;
+                    helperToolStatusLabel.ForeColor = Color.Green;
+                };
+
+                helperToolStatusLabel.Invoke(setHelperToolVersion);
+                uninstallHelperToolBtn.Invoke(setUninstallBtnAvailable);
+            }
+            else
+            {
+                Action setHelperToolVersionNotFound = delegate {
+                    helperToolStatusLabel.Text = loc.localize(Localization.FormComponent.Tab4FontMissing);
+                    helperToolStatusLabel.ForeColor = Color.Red;
+                };
+                uninstallHelperToolBtn.Invoke(disableUninstallBtn);
+            }
+            Action setInstallBtnAvailable = delegate { InstallUpdateHelperToolBtn.Enabled = true; };
+            InstallUpdateHelperToolBtn.Invoke(setInstallBtnAvailable);
         }
 
         private void updateLangVersion()
@@ -280,11 +362,20 @@ namespace BDOLangReplacement
                     {
                         Restore.Enabled = false;
                     }
+                    if (Replace.Enabled && Restore.Enabled && helperToolStatusLabel.ForeColor == Color.Green)
+                    {
+                        MergeBtn.Enabled = true;
+                    }
+                    else
+                    {
+                        MergeBtn.Enabled = false;
+                    }
                 }
                 else
                 {
                     Replace.Enabled = false;
                     Restore.Enabled = false;
+                    MergeBtn.Enabled = false;
                 }
             }
             else
@@ -293,6 +384,7 @@ namespace BDOLangReplacement
                 bdoLauncherFound = false;
                 Replace.Enabled = false;
                 Restore.Enabled = false;
+                MergeBtn.Enabled = false;
             }
         }
 
@@ -453,6 +545,186 @@ namespace BDOLangReplacement
             replacementInProgress = false;
         }
 
+        private void merge()
+        {
+            Action deleteTempLocFile = delegate
+            {
+                replacementLog.AppendText("Removing temp localization file... ");
+            };
+            replacementLog.Invoke(deleteTempLocFile);
+            if (findAndDeleteTempLocFile(conf.defaultReplacementLanguage) && findAndDeleteTempLocFile(conf.defaultLanguage))
+            {
+                Action removeDone = delegate
+                {
+                    replacementLog.AppendText("[DONE]" + Environment.NewLine);
+                };
+                replacementLog.Invoke(removeDone);
+            }
+            else
+            {
+                Action removeOK = delegate
+                {
+                    replacementLog.AppendText("[OK]" + Environment.NewLine);
+                };
+                replacementLog.Invoke(removeOK);
+            }
+            Action setBarVal10 = delegate { replaceBar.Value = 10; };
+            replaceBar.Invoke(setBarVal10);
+            Action downloadLocFile = delegate
+            {
+                replacementLog.AppendText("Download replacement localization file from BDO official server..." + Environment.NewLine);
+            };
+            replacementLog.Invoke(downloadLocFile);
+            lang.DownloadLanguageFile(conf.defaultReplacementLanguage, TempLangFilePath(conf.defaultReplacementLanguage),
+            (object sender, DownloadProgressChangedEventArgs e) => {
+                if (downloadLog)
+                {
+                    Action updateBar = delegate
+                    {
+                        replaceBar.Value = 10 + (int)(e.ProgressPercentage * 0.2f);
+                    };
+                    replaceBar.Invoke(updateBar);
+                    Action appendDownloadLog = delegate
+                    {
+                        replacementLog.AppendText("Download progress [" + e.ProgressPercentage + "%]: " + e.BytesReceived +
+                            " / " + e.TotalBytesToReceive + Environment.NewLine);
+                    };
+                    replacementLog.Invoke(appendDownloadLog);
+                    downloadLog = false;
+                }
+            });
+            Action downloadLocFileCompleted = delegate
+            {
+                replacementLog.AppendText("Replacement Location file download succeed. " + Environment.NewLine);
+            };
+            replacementLog.Invoke(downloadLocFileCompleted);
+            Action downloadLocFile2 = delegate
+            {
+                replacementLog.AppendText("Download original localization file from BDO official server..." + Environment.NewLine);
+            };
+            replacementLog.Invoke(downloadLocFile2);
+            lang.DownloadLanguageFile(conf.defaultLanguage, TempLangFilePath(conf.defaultLanguage),
+            (object sender, DownloadProgressChangedEventArgs e) => {
+                if (downloadLog)
+                {
+                    Action updateBar = delegate
+                    {
+                        replaceBar.Value = 30 + (int)(e.ProgressPercentage * 0.2f);
+                    };
+                    replaceBar.Invoke(updateBar);
+                    Action appendDownloadLog = delegate
+                    {
+                        replacementLog.AppendText("Download progress [" + e.ProgressPercentage + "%]: " + e.BytesReceived +
+                            " / " + e.TotalBytesToReceive + Environment.NewLine);
+                    };
+                    replacementLog.Invoke(appendDownloadLog);
+                    downloadLog = false;
+                }
+            });
+            Action downloadLocFileCompleted2 = delegate
+            {
+                replacementLog.AppendText("Original location file download succeed. " + Environment.NewLine);
+            };
+            replacementLog.Invoke(downloadLocFileCompleted2);
+
+            // Start invoking the helper tool
+            HelperToolArgument argD1 = new HelperToolArgument(Path.GetFullPath(TempLangFilePath(conf.defaultReplacementLanguage)), 
+                Path.GetFullPath(tempFolder + "loc_rep.txt"), (int)HelperToolArgument.HelperToolOpCode.Decrypt);
+            Action decryptReplacement = delegate
+            {
+                replacementLog.AppendText("Decrypting replacement localization file");
+            };
+            replacementLog.Invoke(decryptReplacement);
+            HelperTool.execute(tempFolder, argD1);
+            Action operationCompleted = delegate
+            {
+                replacementLog.AppendText(" [DONE]" + Environment.NewLine);
+            };
+            replacementLog.Invoke(operationCompleted);
+            Action updateBar60 = delegate
+            {
+                replaceBar.Value = 60;
+            };
+            replaceBar.Invoke(updateBar60);
+            Action decryptOriginal = delegate
+            {
+                replacementLog.AppendText("Decrypting original localization file");
+            };
+            replacementLog.Invoke(decryptOriginal);
+            HelperToolArgument argD2 = new HelperToolArgument(Path.GetFullPath(TempLangFilePath(conf.defaultLanguage)), 
+                Path.GetFullPath(tempFolder + "loc_base.txt"), (int)HelperToolArgument.HelperToolOpCode.Decrypt);
+            HelperTool.execute(tempFolder, argD2);
+            replacementLog.Invoke(operationCompleted);
+            Action updateBar70 = delegate
+            {
+                replaceBar.Value = 70;
+            };
+            replaceBar.Invoke(updateBar70);
+            Action MergeStart = delegate
+            {
+                replacementLog.AppendText("Merging Localization files (This may take a long time)");
+            };
+            replacementLog.Invoke(MergeStart);
+            HelperToolArgument argM = new HelperToolArgument(Path.GetFullPath(tempFolder + "loc_base.txt"),
+                Path.GetFullPath(tempFolder + "loc_merge.txt"), (int)HelperToolArgument.HelperToolOpCode.Merge);
+            argM.addAdditionalFile(Path.GetFullPath(tempFolder + "loc_rep.txt"));
+            HelperTool.execute(tempFolder, argM);
+            replacementLog.Invoke(operationCompleted);
+            Action updateBar90 = delegate
+            {
+                replaceBar.Value = 90;
+            };
+            replaceBar.Invoke(updateBar90);
+            Action EncryptStart = delegate
+            {
+                replacementLog.AppendText("Encrypting merged localization file");
+            };
+            replacementLog.Invoke(EncryptStart);
+            HelperToolArgument argE = new HelperToolArgument(Path.GetFullPath(tempFolder + "loc_merge.txt"),
+                Path.GetFullPath(tempFolder + "languagedata_merge.loc"), (int)HelperToolArgument.HelperToolOpCode.Encrtpy);
+            HelperTool.execute(tempFolder, argE);
+            Action updateBar95 = delegate
+            {
+                replaceBar.Value = 95;
+            };
+            replacementLog.Invoke(operationCompleted);
+            replaceBar.Invoke(updateBar95);
+
+            Action StartReplacing = delegate
+            {
+                replacementLog.AppendText("Replacing localization file...");
+            };
+            replacementLog.Invoke(StartReplacing);
+            File.Replace(tempFolder + "languagedata_merge.loc", LocalLangFilePath(conf.defaultLanguage), LocalLangFilePath(conf.defaultLanguage) + ".bak");
+            Action updateBar100 = delegate
+            {
+                replaceBar.Value = 100;
+            };
+            replaceBar.Invoke(updateBar100);
+            Action completed = delegate
+            {
+                replacementLog.AppendText("  [DONE]" + Environment.NewLine + "Replacement Completed.");
+            };
+            replacementLog.Invoke(completed);
+            replacementInProgress = false;
+
+            if (File.Exists(tempFolder + "loc_base.txt"))
+            {
+                File.Delete(tempFolder + "loc_base.txt");
+            }
+            if (File.Exists(tempFolder + "loc_rep.txt"))
+            {
+                File.Delete(tempFolder + "loc_rep.txt");
+            }
+            if (File.Exists(tempFolder + "loc_merge.txt"))
+            {
+                File.Delete(tempFolder + "loc_merge.txt");
+            }
+            if (File.Exists(tempFolder + "languagedata_merge.loc"))
+            {
+                File.Delete(tempFolder + "languagedata_merge.loc");
+            }    
+        }
         private void Replace_Click(object sender, EventArgs e)
         {
             replacementLog.Text = "";
@@ -490,21 +762,21 @@ namespace BDOLangReplacement
         {
             if(File.Exists(LocalFontFilePath()))
             {
-                CNFont.Text = loc.localize(Localization.FormComponent.Tab3FontInstalled);
+                CNFont.Text = loc.localize(Localization.FormComponent.Tab4FontInstalled);
                 CNFont.ForeColor = Color.Green;
-                cnFontInstalled = true;
+                fontInstalled = true;
             }
             else
             {
-                CNFont.Text = loc.localize(Localization.FormComponent.Tab3FontMissing);
+                CNFont.Text = loc.localize(Localization.FormComponent.Tab4FontMissing);
                 CNFont.ForeColor = Color.Red;
-                cnFontInstalled = false;
+                fontInstalled = false;
             }
         }
 
         private void SetupCNFont_Click(object sender, EventArgs e)
         {
-            if (cnFontInstalled)
+            if (fontInstalled)
             {
                 File.Delete(LocalFontFilePath());
             }
@@ -529,9 +801,21 @@ namespace BDOLangReplacement
                     {
                         rr.GetResourceData("TW_CN_Font.ttf", out resourceType, out resourceData);
                     }
-                    else
+                    else if(ZhcnFontSwitchButton.Checked)
                     {
                         rr.GetResourceData("ZH_CN_Font.ttf", out resourceType, out resourceData);
+                    }
+                    else // Custom font
+                    {
+                        font.Close();
+                        fs.Close();
+                        if (File.Exists(fontInput.Text) && fontInput.Text.EndsWith(".ttf"))
+                        {
+                            if (File.Exists(LocalFontFilePath()))
+                                File.Delete(LocalFontFilePath());
+                            File.Copy(fontInput.Text, LocalFontFilePath());
+                        }
+                        return;
                     }
                     rr.Close();
                     font.Close();
@@ -540,10 +824,6 @@ namespace BDOLangReplacement
                     fs.Flush();
                     fs.Close();
                     font.Close();
-                    // Write the font config
-                    string fontConfig = File.ReadAllText(BDOConfigPath);
-                    fontConfig = Regex.Replace(fontConfig, @"UIFontType = (\d{1})", "UIFontType = 0");
-                    File.WriteAllText(BDOConfigPath, fontConfig);
                 }
                 catch (Exception)
                 {
@@ -555,6 +835,13 @@ namespace BDOLangReplacement
 
                     MessageBox.Show(loc.localize(Localization.FormComponent.FailedToInstallCNFont), 
                         loc.localize(Localization.FormComponent.FailedToInstallCNFontTitle), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    // Write the font config
+                    string fontConfig = File.ReadAllText(BDOConfigPath);
+                    fontConfig = Regex.Replace(fontConfig, @"UIFontType = (\d{1})", "UIFontType = 0");
+                    File.WriteAllText(BDOConfigPath, fontConfig);
                 }
             }
         }
@@ -584,6 +871,263 @@ namespace BDOLangReplacement
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void InstallUpdateHelperToolBtn_Click(object sender, EventArgs e)
+        {
+            if (!helperToolStatusLabel.Text.Equals(helperToolOnlineVerLabel.Text) && 
+                helperToolOnlineVerLabel.ForeColor == Color.Green)
+            {
+                InstallUpdateHelperToolBtn.Enabled = false;
+                if (HelperTool.installHelperTool(tempFolder))
+                {
+                    Thread th = new Thread(new ThreadStart(updateHelperToolVersion));
+                    th.Start();
+                }
+            }
+            else
+            {
+                if (File.Exists(helperToolPath))
+                {
+                    Thread th = new Thread(new ThreadStart(updateHelperToolVersion));
+                    th.Start();
+                }
+                string helperToolOnlineVersion = HelperTool.getOnlineVersion();
+                if (!helperToolOnlineVersion.Equals(""))
+                {
+                    helperToolOnlineVerLabel.Text = helperToolOnlineVersion;
+                    helperToolOnlineVerLabel.ForeColor = Color.Green;
+                }
+                else
+                {
+                    helperToolOnlineVerLabel.Text = loc.localize(Localization.FormComponent.Tab3HelperToolVersionUnavailable);
+                    helperToolOnlineVerLabel.ForeColor = Color.Red;
+                }
+            }
+        }
+
+        private void uninstallHelperToolBtn_Click(object sender, EventArgs e)
+        {
+            if (HelperTool.uninstallHelperTool(tempFolder))
+            {
+                helperToolStatusLabel.Text = loc.localize(Localization.FormComponent.Tab3HelperToolVersionUnavailable);
+                helperToolStatusLabel.ForeColor = Color.Red;
+                InstallUpdateHelperToolBtn.Enabled = true;
+            }
+        }
+
+        private void advOpSourceBrowseBtn_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog()
+            {
+                Filter = "Plaintext files (*.txt)|*.txt|Localization files (*.loc)|*.loc|All files (*.*)|*.*",
+                Title = "Advance Operation Source File",
+                CheckFileExists = true,
+                CheckPathExists = true,
+            };
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                advOpSourceInput.Text = openFileDialog.FileName;
+            }
+        }
+
+        private void advOpOutputBrowseBtn_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog()
+            {
+                Filter = "Plaintext files (*.txt)|*.txt|Localization files (*.loc)|*.loc|All files (*.*)|*.*",
+                Title = "Advance Operation Output File",
+            };
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                advOpOutputInput.Text = openFileDialog.FileName;
+            }
+        }
+
+        private void exectuteHelperTool(HelperToolArgument arg)
+        {
+            HelperTool.executeAndUpdateProgressBarAndTreeView(tempFolder, arg, advOpProgressBar, advOpExecTreeView);
+            Action enableExecBtnAction = delegate { executeHelperBtn.Enabled = true;
+                advOpSourceBrowseBtn.Enabled = true;
+                advOpOutputBrowseBtn.Enabled = true;
+                advOpAdditionalFile1BrowseBtn.Enabled = true;
+                advOpAdditionalFile2BrowseBtn.Enabled = true;
+                advOpCodeBox.Enabled = true;
+                advOpSourceInput.ReadOnly = false;
+                advOpOutputInput.ReadOnly = false;
+                advOpAdditionalFile1Input.ReadOnly = false;
+                advOpAdditionalFile2Input.ReadOnly = false;
+            };
+            executeHelperBtn.Invoke(enableExecBtnAction);
+        }
+
+        private void executeHelperBtn_Click(object sender, EventArgs e)
+        {
+            if (helperToolStatusLabel.ForeColor != Color.Green)
+            {
+                MessageBox.Show(loc.localize(Localization.FormComponent.Tab3InstallHelperToolFirstText));
+                return;
+            }
+
+            if (advOpCodeBox.SelectedIndex == -1 ||
+                !File.Exists(advOpSourceInput.Text) ||
+                advOpOutputInput.Text.Equals(string.Empty) ||
+                (!advOpAdditionalFile1Input.Text.Equals(string.Empty) &&
+                 !File.Exists(advOpAdditionalFile1Input.Text)) ||
+                (!advOpAdditionalFile2Input.Text.Equals(string.Empty) &&
+                 !File.Exists(advOpAdditionalFile2Input.Text)))
+            {
+                return;
+            }
+
+            HelperToolArgument arg = new HelperToolArgument(advOpSourceInput.Text, advOpOutputInput.Text, advOpCodeBox.SelectedIndex);
+            if (!advOpAdditionalFile1Input.Text.Equals(string.Empty))
+            {
+                arg.addAdditionalFile(advOpAdditionalFile1Input.Text);
+            }
+            if (!advOpAdditionalFile2Input.Text.Equals(string.Empty))
+            {
+                arg.addAdditionalFile(advOpAdditionalFile2Input.Text);
+            }
+
+            executeHelperBtn.Enabled = false;
+            advOpSourceBrowseBtn.Enabled = false;
+            advOpOutputBrowseBtn.Enabled = false;
+            advOpAdditionalFile1BrowseBtn.Enabled = false;
+            advOpAdditionalFile2BrowseBtn.Enabled = false;
+            advOpCodeBox.Enabled = false;
+            advOpSourceInput.ReadOnly = true;
+            advOpOutputInput.ReadOnly = true;
+            advOpAdditionalFile1Input.ReadOnly = true;
+            advOpAdditionalFile2Input.ReadOnly = true;
+
+            Thread th = new Thread(() => exectuteHelperTool(arg));
+            th.Start();
+        }
+
+        private void MergeBtn_Click(object sender, EventArgs e)
+        {
+            replacementLog.Text = "";
+            replaceBar.Value = 0;
+            replacementInProgress = true;
+            Thread thread = new Thread(merge);
+            thread.Start();
+        }
+
+        private void advOpAdditionalFile2BrowseBtn_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog()
+            {
+                Filter = "Plaintext files (*.txt)|*.txt|Localization files (*.loc)|*.loc|All files (*.*)|*.*",
+                Title = "Advance Operation Additional File",
+                CheckPathExists = true,
+                CheckFileExists = true,
+            };
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                advOpAdditionalFile2Input.Text = openFileDialog.FileName;
+            }
+        }
+
+        private void advOpAdditionalFile1BrowseBtn_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog()
+            {
+                Filter = "Plaintext files (*.txt)|*.txt|Localization files (*.loc)|*.loc|All files (*.*)|*.*",
+                Title = "Advance Operation Additional File",
+                CheckPathExists = true,
+                CheckFileExists = true,
+            };
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                advOpAdditionalFile1Input.Text = openFileDialog.FileName;
+            }
+        }
+
+        private List<string> GetFilesForFont(string fontName)
+        {
+            var fontNameToFiles = new Dictionary<string, List<string>>();
+
+            foreach (var fontFile in Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.Fonts)))
+            {
+                var fc = new PrivateFontCollection();
+
+                if (File.Exists(fontFile))
+                    fc.AddFontFile(fontFile);
+
+                if ((!fc.Families.Any()))
+                    continue;
+
+                var name = fc.Families[0].Name;
+
+                // If you care about bold, italic, etc, you can filter here.
+                if (!fontNameToFiles.TryGetValue(name, out var files))
+                {
+                    files = new List<string>();
+                    fontNameToFiles[name] = files;
+                }
+
+                files.Add(fontFile);
+            }
+
+            if (!fontNameToFiles.TryGetValue(fontName, out var result))
+                return null;
+
+            return result;
+        }
+
+        private void fontBrowse_Click(object sender, EventArgs e)
+        {
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                List<string> ft = GetFilesForFont(fontDialog.Font.Name);
+                if (ft != null && ft.Count() > 0 && ft[0].EndsWith(".ttf"))
+                {
+                    fontInput.Text = ft[0];
+                    exampleBox.Font = fontDialog.Font;
+                }
+                else
+                {
+                    fontInput.Text = "";
+                    MessageBox.Show(loc.localize(Localization.FormComponent.Tab4CannotReadFontFilePathText));
+                }
+            }
+        }
+
+        private void fontFileBrowse_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog
+            {
+                Filter = "TTF Font File (*.ttf)|*.ttf",
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Fonts),
+                CheckFileExists = true,
+                CheckPathExists = true,
+                DefaultExt = "ttf"
+            };
+
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                PrivateFontCollection collection = new PrivateFontCollection();
+                byte[] fontBin = File.ReadAllBytes(ofd.FileName);
+                var handle = GCHandle.Alloc(fontBin, GCHandleType.Pinned);
+                IntPtr pointer = handle.AddrOfPinnedObject();
+                try
+                {
+                    collection.AddMemoryFont(pointer, fontBin.Length);
+                }
+                finally
+                {
+                    handle.Free();
+                }
+                FontFamily fontFamily = collection.Families.LastOrDefault();
+                Font customFont = new Font(fontFamily, 16);
+                exampleBox.Font = customFont;
+                fontInput.Text = ofd.FileName;
+            }
         }
     }
 }

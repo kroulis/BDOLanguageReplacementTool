@@ -238,257 +238,294 @@ namespace BDOLangReplacement
         public bool UpdateVersions()
         {
             WebClient webClient = new WebClient();
-
-            // Update NA/EU server languages
-            string versionsStr = webClient.DownloadString(NAEU_LANG_VERSION_URL);
-            string[] versionLine = versionsStr.Split('\n');
-            foreach(string version in versionLine)
+            string versionsStr;
+            string[] versionLine;
+            try
             {
-                string[] lan_ver = version.Split(AES_VERSION_DELIMITER.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-                if (lan_ver.Length != 2)
+                // Update NA/EU server languages
+                versionsStr = webClient.DownloadString(NAEU_LANG_VERSION_URL);
+                versionLine = versionsStr.Split('\n');
+                foreach (string version in versionLine)
                 {
-                    continue;
-                }
+                    string[] lan_ver = version.Split(AES_VERSION_DELIMITER.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                    if (lan_ver.Length != 2)
+                    {
+                        continue;
+                    }
 
-                int lang_type = ((int)Language.UNKNOWN);
-                if (lan_ver[0].Equals(GetLanguageFileName(Language.NAEU_EN)))
-                {
-                    lang_type = ((int)Language.NAEU_EN);
+                    int lang_type = ((int)Language.UNKNOWN);
+                    if (lan_ver[0].Equals(GetLanguageFileName(Language.NAEU_EN)))
+                    {
+                        lang_type = ((int)Language.NAEU_EN);
+                    }
+                    else if (lan_ver[0].Equals(GetLanguageFileName(Language.NAEU_DE)))
+                    {
+                        lang_type = ((int)Language.NAEU_DE);
+                    }
+                    else if (lan_ver[0].Equals(GetLanguageFileName(Language.NAEU_FR)))
+                    {
+                        lang_type = ((int)Language.NAEU_FR);
+                    }
+                    else if (lan_ver[0].Equals(GetLanguageFileName(Language.NAEU_SP)))
+                    {
+                        lang_type = ((int)Language.NAEU_SP);
+                    }
+                    else if (lan_ver[0].StartsWith("languagedata_"))
+                    {
+                        log += "Found unsupported new language type " + lan_ver[0] + " from NA/EU.\n";
+                    }
+                    versions[lang_type] = int.Parse(lan_ver[1]);
                 }
-                else if (lan_ver[0].Equals(GetLanguageFileName(Language.NAEU_DE)))
-                {
-                    lang_type = ((int)Language.NAEU_DE);
-                }
-                else if (lan_ver[0].Equals(GetLanguageFileName(Language.NAEU_FR)))
-                {
-                    lang_type = ((int)Language.NAEU_FR);
-                }
-                else if (lan_ver[0].Equals(GetLanguageFileName(Language.NAEU_SP)))
-                {
-                    lang_type = ((int)Language.NAEU_SP);
-                }
-                else if (lan_ver[0].StartsWith("languagedata_"))
-                {
-                    log += "Found unsupported new language type " + lan_ver[0] + " from NA/EU.\n";
-                }
-                versions[lang_type] = int.Parse(lan_ver[1]);
             }
+            catch(Exception){ }
 
             // Update TW server languages
-            versionsStr = webClient.DownloadString(TW_LANG_VERSION_URL);
-            versionLine = versionsStr.Split('\n');
-            foreach (string version in versionLine)
+            try
             {
-                string[] lan_ver = version.Split(AES_VERSION_DELIMITER.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-                if (lan_ver.Length != 2)
+                versionsStr = webClient.DownloadString(TW_LANG_VERSION_URL);
+                versionLine = versionsStr.Split('\n');
+                foreach (string version in versionLine)
                 {
-                    continue;
-                }
+                    string[] lan_ver = version.Split(AES_VERSION_DELIMITER.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                    if (lan_ver.Length != 2)
+                    {
+                        continue;
+                    }
 
-                int lang_type = ((int)Language.UNKNOWN);
-                if (lan_ver[0].Equals(GetLanguageFileName(Language.TW_TW_CN)))
-                {
-                    lang_type = ((int)Language.TW_TW_CN);
+                    int lang_type = ((int)Language.UNKNOWN);
+                    if (lan_ver[0].Equals(GetLanguageFileName(Language.TW_TW_CN)))
+                    {
+                        lang_type = ((int)Language.TW_TW_CN);
+                    }
+                    else if (lan_ver[0].StartsWith("languagedata_"))
+                    {
+                        log += "Found unsupported new language type " + lan_ver[0] + " from TW.\n";
+                    }
+                    versions[lang_type] = int.Parse(lan_ver[1]);
                 }
-                else if (lan_ver[0].StartsWith("languagedata_"))
-                {
-                    log += "Found unsupported new language type " + lan_ver[0] + " from TW.\n";
-                }
-                versions[lang_type] = int.Parse(lan_ver[1]);
             }
+            catch (Exception) { }
 
             // Update SEA server languages
-            versionsStr = webClient.DownloadString(SEA_LANG_VERSION_URL);
-            versionLine = versionsStr.Split('\n');
-            foreach (string version in versionLine)
+            try
             {
-                string[] lan_ver = version.Split(AES_VERSION_DELIMITER.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-                if (lan_ver.Length != 2)
+                versionsStr = webClient.DownloadString(SEA_LANG_VERSION_URL);
+                versionLine = versionsStr.Split('\n');
+                foreach (string version in versionLine)
                 {
-                    continue;
-                }
+                    string[] lan_ver = version.Split(AES_VERSION_DELIMITER.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                    if (lan_ver.Length != 2)
+                    {
+                        continue;
+                    }
 
-                int lang_type = ((int)Language.UNKNOWN);
-                if (lan_ver[0].Equals(GetLanguageFileName(Language.SEA_ID)))
-                {
-                    lang_type = ((int)Language.SEA_ID);
+                    int lang_type = ((int)Language.UNKNOWN);
+                    if (lan_ver[0].Equals(GetLanguageFileName(Language.SEA_ID)))
+                    {
+                        lang_type = ((int)Language.SEA_ID);
+                    }
+                    else if (lan_ver[0].Equals(GetLanguageFileName(Language.SEA_EN)))
+                    {
+                        lang_type = ((int)Language.SEA_EN);
+                    }
+                    else if (lan_ver[0].Equals(GetLanguageFileName(Language.SEA_ID_EN)))
+                    {
+                        lang_type = ((int)Language.SEA_ID_EN);
+                    }
+                    else if (lan_ver[0].StartsWith("languagedata_"))
+                    {
+                        log.Concat("Found unsupported new language type " + lan_ver[0] + " from NA/EU.\n");
+                    }
+                    versions[lang_type] = int.Parse(lan_ver[1]);
                 }
-                else if (lan_ver[0].Equals(GetLanguageFileName(Language.SEA_EN)))
-                {
-                    lang_type = ((int)Language.SEA_EN);
-                }
-                else if (lan_ver[0].Equals(GetLanguageFileName(Language.SEA_ID_EN)))
-                {
-                    lang_type = ((int)Language.SEA_ID_EN);
-                }
-                else if (lan_ver[0].StartsWith("languagedata_"))
-                {
-                    log.Concat("Found unsupported new language type " + lan_ver[0] + " from NA/EU.\n");
-                }
-                versions[lang_type] = int.Parse(lan_ver[1]);
             }
+            catch (Exception) { }
 
             // Update JP server languages
-            versionsStr = webClient.DownloadString(JP_LANG_VERSION_URL);
-            versionLine = versionsStr.Split('\n');
-            foreach (string version in versionLine)
+            try
             {
-                string[] lan_ver = version.Split(AES_VERSION_DELIMITER.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-                if (lan_ver.Length != 2)
+                versionsStr = webClient.DownloadString(JP_LANG_VERSION_URL);
+                versionLine = versionsStr.Split('\n');
+                foreach (string version in versionLine)
                 {
-                    continue;
-                }
+                    string[] lan_ver = version.Split(AES_VERSION_DELIMITER.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                    if (lan_ver.Length != 2)
+                    {
+                        continue;
+                    }
 
-                int lang_type = ((int)Language.UNKNOWN);
-                if (lan_ver[0].Equals(GetLanguageFileName(Language.JP_JP)))
-                {
-                    lang_type = ((int)Language.JP_JP);
+                    int lang_type = ((int)Language.UNKNOWN);
+                    if (lan_ver[0].Equals(GetLanguageFileName(Language.JP_JP)))
+                    {
+                        lang_type = ((int)Language.JP_JP);
+                    }
+                    else if (lan_ver[0].StartsWith("languagedata_"))
+                    {
+                        log += "Found unsupported new language type " + lan_ver[0] + " from JP.\n";
+                    }
+                    versions[lang_type] = int.Parse(lan_ver[1]);
                 }
-                else if (lan_ver[0].StartsWith("languagedata_"))
-                {
-                    log += "Found unsupported new language type " + lan_ver[0] + " from JP.\n";
-                }
-                versions[lang_type] = int.Parse(lan_ver[1]);
             }
+            catch (Exception) { }
 
             // Update TH server languages
-            versionsStr = webClient.DownloadString(TH_LANG_VERSION_URL);
-            versionLine = versionsStr.Split('\n');
-            foreach (string version in versionLine)
+            try
             {
-                string[] lan_ver = version.Split(AES_VERSION_DELIMITER.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-                if (lan_ver.Length != 2)
+                versionsStr = webClient.DownloadString(TH_LANG_VERSION_URL);
+                versionLine = versionsStr.Split('\n');
+                foreach (string version in versionLine)
                 {
-                    continue;
-                }
+                    string[] lan_ver = version.Split(AES_VERSION_DELIMITER.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                    if (lan_ver.Length != 2)
+                    {
+                        continue;
+                    }
 
-                int lang_type = ((int)Language.UNKNOWN);
-                if (lan_ver[0].Equals(GetLanguageFileName(Language.TH_TH)))
-                {
-                    lang_type = ((int)Language.TH_TH);
+                    int lang_type = ((int)Language.UNKNOWN);
+                    if (lan_ver[0].Equals(GetLanguageFileName(Language.TH_TH)))
+                    {
+                        lang_type = ((int)Language.TH_TH);
+                    }
+                    else if (lan_ver[0].Equals(GetLanguageFileName(Language.TH_EN)))
+                    {
+                        lang_type = ((int)Language.TH_EN);
+                    }
+                    else if (lan_ver[0].StartsWith("languagedata_"))
+                    {
+                        log += "Found unsupported new language type " + lan_ver[0] + " from TH.\n";
+                    }
+                    versions[lang_type] = int.Parse(lan_ver[1]);
                 }
-                else if (lan_ver[0].Equals(GetLanguageFileName(Language.TH_EN)))
-                {
-                    lang_type = ((int)Language.TH_EN);
-                }
-                else if (lan_ver[0].StartsWith("languagedata_"))
-                {
-                    log += "Found unsupported new language type " + lan_ver[0] + " from TH.\n";
-                }
-                versions[lang_type] = int.Parse(lan_ver[1]);
             }
+            catch (Exception) { }
 
             // Update RU server languages
-            versionsStr = webClient.DownloadString(RU_LANG_VERSION_URL);
-            versionLine = versionsStr.Split('\n');
-            foreach (string version in versionLine)
+            try
             {
-                string[] lan_ver = version.Split(AES_VERSION_DELIMITER.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-                if (lan_ver.Length != 2)
+                versionsStr = webClient.DownloadString(RU_LANG_VERSION_URL);
+                versionLine = versionsStr.Split('\n');
+                foreach (string version in versionLine)
                 {
-                    continue;
-                }
+                    string[] lan_ver = version.Split(AES_VERSION_DELIMITER.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                    if (lan_ver.Length != 2)
+                    {
+                        continue;
+                    }
 
-                int lang_type = ((int)Language.UNKNOWN);
-                if (lan_ver[0].Equals(GetLanguageFileName(Language.RU_RU)))
-                {
-                    lang_type = ((int)Language.RU_RU);
+                    int lang_type = ((int)Language.UNKNOWN);
+                    if (lan_ver[0].Equals(GetLanguageFileName(Language.RU_RU)))
+                    {
+                        lang_type = ((int)Language.RU_RU);
+                    }
+                    else if (lan_ver[0].StartsWith("languagedata_"))
+                    {
+                        log += "Found unsupported new language type " + lan_ver[0] + " from RU.\n";
+                    }
+                    versions[lang_type] = int.Parse(lan_ver[1]);
                 }
-                else if (lan_ver[0].StartsWith("languagedata_"))
-                {
-                    log += "Found unsupported new language type " + lan_ver[0] + " from RU.\n";
-                }
-                versions[lang_type] = int.Parse(lan_ver[1]);
             }
+            catch (Exception) { }
 
             // Update TR server languages
-            versionsStr = webClient.DownloadString(TR_LANG_VERSION_URL);
-            versionLine = versionsStr.Split('\n');
-            foreach (string version in versionLine)
+            try
             {
-                string[] lan_ver = version.Split(AES_VERSION_DELIMITER.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-                if (lan_ver.Length != 2)
+                versionsStr = webClient.DownloadString(TR_LANG_VERSION_URL);
+                versionLine = versionsStr.Split('\n');
+                foreach (string version in versionLine)
                 {
-                    continue;
-                }
+                    string[] lan_ver = version.Split(AES_VERSION_DELIMITER.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                    if (lan_ver.Length != 2)
+                    {
+                        continue;
+                    }
 
-                int lang_type = ((int)Language.UNKNOWN);
-                if (lan_ver[0].Equals(GetLanguageFileName(Language.TR_TR)))
-                {
-                    lang_type = ((int)Language.TR_TR);
+                    int lang_type = ((int)Language.UNKNOWN);
+                    if (lan_ver[0].Equals(GetLanguageFileName(Language.TR_TR)))
+                    {
+                        lang_type = ((int)Language.TR_TR);
+                    }
+                    else if (lan_ver[0].Equals(GetLanguageFileName(Language.TR_EN)))
+                    {
+                        lang_type = ((int)Language.TR_EN);
+                    }
+                    else if (lan_ver[0].Equals(GetLanguageFileName(Language.TR_TR_EN)))
+                    {
+                        lang_type = ((int)Language.TR_TR_EN);
+                    }
+                    else if (lan_ver[0].StartsWith("languagedata_"))
+                    {
+                        log.Concat("Found unsupported new language type " + lan_ver[0] + " from TR.\n");
+                    }
+                    versions[lang_type] = int.Parse(lan_ver[1]);
                 }
-                else if (lan_ver[0].Equals(GetLanguageFileName(Language.TR_EN)))
-                {
-                    lang_type = ((int)Language.TR_EN);
-                }
-                else if (lan_ver[0].Equals(GetLanguageFileName(Language.TR_TR_EN)))
-                {
-                    lang_type = ((int)Language.TR_TR_EN);
-                }
-                else if (lan_ver[0].StartsWith("languagedata_"))
-                {
-                    log.Concat("Found unsupported new language type " + lan_ver[0] + " from TR.\n");
-                }
-                versions[lang_type] = int.Parse(lan_ver[1]);
             }
+            catch (Exception) { }
 
             // Update SA server languages
-            versionsStr = webClient.DownloadString(SA_LANG_VERSION_URL);
-            versionLine = versionsStr.Split('\n');
-            foreach (string version in versionLine)
+            try
             {
-                string[] lan_ver = version.Split(AES_VERSION_DELIMITER.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-                if (lan_ver.Length != 2)
+                versionsStr = webClient.DownloadString(SA_LANG_VERSION_URL);
+                versionLine = versionsStr.Split('\n');
+                foreach (string version in versionLine)
                 {
-                    continue;
-                }
+                    string[] lan_ver = version.Split(AES_VERSION_DELIMITER.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                    if (lan_ver.Length != 2)
+                    {
+                        continue;
+                    }
 
-                int lang_type = ((int)Language.UNKNOWN);
-                if (lan_ver[0].Equals(GetLanguageFileName(Language.SA_ES)))
-                {
-                    lang_type = ((int)Language.SA_ES);
+                    int lang_type = ((int)Language.UNKNOWN);
+                    if (lan_ver[0].Equals(GetLanguageFileName(Language.SA_ES)))
+                    {
+                        lang_type = ((int)Language.SA_ES);
+                    }
+                    else if (lan_ver[0].Equals(GetLanguageFileName(Language.SA_PT)))
+                    {
+                        lang_type = ((int)Language.SA_PT);
+                    }
+                    else if (lan_ver[0].StartsWith("languagedata_"))
+                    {
+                        log.Concat("Found unsupported new language type " + lan_ver[0] + " from SA.\n");
+                    }
+                    versions[lang_type] = int.Parse(lan_ver[1]);
                 }
-                else if (lan_ver[0].Equals(GetLanguageFileName(Language.SA_PT)))
-                {
-                    lang_type = ((int)Language.SA_PT);
-                }
-                else if (lan_ver[0].StartsWith("languagedata_"))
-                {
-                    log.Concat("Found unsupported new language type " + lan_ver[0] + " from SA.\n");
-                }
-                versions[lang_type] = int.Parse(lan_ver[1]);
             }
+            catch (Exception) { }
 
             // Update Global Lab server languages
-            versionsStr = webClient.DownloadString(GL_LANG_VERSION_URL);
-            versionLine = versionsStr.Split('\n');
-            foreach (string version in versionLine)
+            try
             {
-                string[] lan_ver = version.Split(AES_VERSION_DELIMITER.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-                if (lan_ver.Length != 2)
+                versionsStr = webClient.DownloadString(GL_LANG_VERSION_URL);
+                versionLine = versionsStr.Split('\n');
+                foreach (string version in versionLine)
                 {
-                    continue;
-                }
+                    string[] lan_ver = version.Split(AES_VERSION_DELIMITER.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                    if (lan_ver.Length != 2)
+                    {
+                        continue;
+                    }
 
-                int lang_type = ((int)Language.UNKNOWN);
-                if (lan_ver[0].Equals(GetLanguageFileName(Language.GL_EN)))
-                {
-                    lang_type = ((int)Language.GL_EN);
+                    int lang_type = ((int)Language.UNKNOWN);
+                    if (lan_ver[0].Equals(GetLanguageFileName(Language.GL_EN)))
+                    {
+                        lang_type = ((int)Language.GL_EN);
+                    }
+                    else if (lan_ver[0].Equals(GetLanguageFileName(Language.GL_JP)))
+                    {
+                        lang_type = ((int)Language.GL_JP);
+                    }
+                    else if (lan_ver[0].Equals(GetLanguageFileName(Language.GL_TW)))
+                    {
+                        lang_type = ((int)Language.GL_TW);
+                    }
+                    else if (lan_ver[0].StartsWith("languagedata_"))
+                    {
+                        log.Concat("Found unsupported new language type " + lan_ver[0] + " from Global Lab.\n");
+                    }
+                    versions[lang_type] = int.Parse(lan_ver[1]);
                 }
-                else if (lan_ver[0].Equals(GetLanguageFileName(Language.GL_JP)))
-                {
-                    lang_type = ((int)Language.GL_JP);
-                }
-                else if (lan_ver[0].Equals(GetLanguageFileName(Language.GL_TW)))
-                {
-                    lang_type = ((int)Language.GL_TW);
-                }
-                else if (lan_ver[0].StartsWith("languagedata_"))
-                {
-                    log.Concat("Found unsupported new language type " + lan_ver[0] + " from Global Lab.\n");
-                }
-                versions[lang_type] = int.Parse(lan_ver[1]);
             }
+            catch (Exception) { }
 
             return true;
         }
