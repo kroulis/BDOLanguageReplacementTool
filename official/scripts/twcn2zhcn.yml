@@ -49,7 +49,7 @@ Procedure:
     SourceFile: ${TempFolder}\bdolr_twfix.txt
     TargetFile: ${TempFolder}\bdolr_cnfix.txt
     Mode: TW_CN2ZH_CN
-  8：
+  8:
     Name: 生成繁体中文新增词条
     Operation: DiffLanguageFile
     SourceFile: ${TempFolder}\lan_tw.txt
@@ -91,6 +91,7 @@ Cleanup:
   - ${TempFolder}\bdolr_twfix.txt
   - ${TempFolder}\bdolr_cnfix.txt
   - ${TempFolder}\lan_origin.txt
+  - ${TempFolder}\lan_origin_diff.txt
   - ${TempFolder}\lan_tw.txt
   - ${TempFolder}\lan_tw_new.txt
   - ${TempFolder}\lan_zh_new.txt

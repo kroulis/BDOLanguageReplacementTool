@@ -7,7 +7,7 @@ namespace BDOLangReplacement
 {
     class Updater
     {
-        private const string VERSION_FILE_URL = "https://raw.githubusercontent.com/kroulis/BDOLanguageReplacementTool/master/BDOLangReplacement/Properties/AssemblyInfo.cs";
+        private const string VERSION_FILE_URL = "https://raw.githubusercontent.com/kroulis/BDOLanguageReplacementTool/beta/BDOLangReplacement/Properties/AssemblyInfo.cs";
 
         public static string getAssemblyVersion()
         {
