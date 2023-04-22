@@ -78,6 +78,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InsiderProgram.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InsiderProgram.Designer.cs">
+      <DependentUpon>InsiderProgram.cs</DependentUpon>
+    </Compile>
     <Compile Include="Internals\Unzip.cs" />
     <Compile Include="src\Config.cs" />
     <Compile Include="FontResource.Designer.cs">
@@ -106,6 +112,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InsiderProgram.resx">
+      <DependentUpon>InsiderProgram.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -153,6 +162,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\test.png" />
     <Content Include="Resources\unnamed.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

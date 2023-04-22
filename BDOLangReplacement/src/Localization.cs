@@ -10,6 +10,7 @@ namespace BDOLangReplacement.Localizations
     {
         public enum FormComponent
         {
+            // Base Form
             APPTitle = 0,
             BDONotFound1,
             BDONotFound2,
@@ -75,6 +76,12 @@ namespace BDOLangReplacement.Localizations
             BDOLauncherFound,
             BDOLauncherNotFound,
             NewVersionAvailable,
+            // Insider Form
+            InsiderProgramFormTitle,
+            InsiderProgramTitle,
+            InsiderProgramDescription,
+            InsiderProgramDetails,
+            InsiderProgramLink,
             MAX
         }
 
@@ -143,6 +150,11 @@ namespace BDOLangReplacement.Localizations
         public static string BDOLauncherFound;
         public static string BDOLauncherNotFound;
         public static string NewVersionAvailable;
+        public static string InsiderProgramFormTitle;
+        public static string InsiderProgramTitle;
+        public static string InsiderProgramDescription;
+        public static string InsiderProgramDetails;
+        public static string InsiderProgramLink;
 
 
         public string localize(FormComponent fc)
@@ -279,6 +291,16 @@ namespace BDOLangReplacement.Localizations
                     return BDOLauncherNotFound;
                 case FormComponent.NewVersionAvailable:
                     return NewVersionAvailable;
+                case FormComponent.InsiderProgramFormTitle:
+                    return InsiderProgramFormTitle;
+                case FormComponent.InsiderProgramTitle:
+                    return InsiderProgramTitle;
+                case FormComponent.InsiderProgramDescription:
+                    return InsiderProgramDescription;
+                case FormComponent.InsiderProgramDetails:
+                    return InsiderProgramDetails;
+                case FormComponent.InsiderProgramLink:
+                    return InsiderProgramLink;
             }
             return "";
         }

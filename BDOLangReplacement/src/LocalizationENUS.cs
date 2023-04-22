@@ -10,7 +10,7 @@ namespace BDOLangReplacement.Localizations
     {
         public LocalizationENUS()
         {
-            APPTitle = "BDOLanguageReplacementTool";
+            APPTitle = "BDOLocalizationFileReplacementTool";
             BDONotFound1 = "Cannot find the Black Desert Online Launcher. Do you want to manually select the BDO root folder?\n" +
                            "If choose NO: please put this executable to the root folder of the Black Desert Online.";
             BDONotFound2 = "Invalid root folder of Black Desert Online. Do you want to retry?\n" +
@@ -70,14 +70,21 @@ namespace BDOLangReplacement.Localizations
             Tab4CustomFontBoxText = "Select Custom Font to Install:";
             Tab4BrowseFontBtnText = "Browse Font";
             Tab4BrowseFontFileBtnText = "Browse File";
-            Tab4CannotReadFontFilePathText = "Cannot get the font file path. Try use the \"Browse File\"";
-            Tab5AboutText = "This tool is made by Kroulis. You can replace you language file freely with this tool. " +
+            Tab4CannotReadFontFilePathText = "Cannot get the font file path or the font is not ttf type. Try use the \"Browse File\"";
+            Tab5AboutText = "This tool is made by Kroulis. You can replace you localization file freely with this tool. " +
                 "This tool is proudly open sourced with MIT licence. You can check it out in GitHub using the link below. Have fun!";
             FailedToInstallCNFont = "Failed to install the CN Font.";
             FailedToInstallCNFontTitle = "Error";
             BDOLauncherFound = "Found BDO Launcher...";
             BDOLauncherNotFound = "Cannot find BDO Launcher Process. Please start the game Launcher before replacing or restoring the localization file.";
             NewVersionAvailable = "Tool current version {0}, Online version {1}. \r\nDo you want to go to the repo to download the new version?";
+            InsiderProgramFormTitle = "Insider Program";
+            InsiderProgramTitle = "Join the Insider Program";
+            InsiderProgramDescription = "Insider program helps us find bugs and provides us suggestions.\r\nPlease go to the beta branch of the repo to get started.";
+            InsiderProgramDetails = "The feature: Scripting is currently available only as insider testing purpose.\r\n" +
+                "The beta version is currently available for a limit time to all users.\r\n" +
+                "Please check the beta branch in the repo to find out how to join.";
+            InsiderProgramLink = "Join the beta program";
         }
     }
 }

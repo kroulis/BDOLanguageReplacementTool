@@ -70,7 +70,7 @@ namespace BDOLangReplacement.Localizations
             Tab4CustomFontBoxText = "自选字体安装到游戏内:";
             Tab4BrowseFontBtnText = "选择字体";
             Tab4BrowseFontFileBtnText = "从文件选择字体";
-            Tab4CannotReadFontFilePathText = "无法取得字体文件. 请使用\"从文件选择字体\"";
+            Tab4CannotReadFontFilePathText = "无法取得字体文件或字体文件不是ttf类型。请使用\"从文件选择字体\"";
             Tab5AboutText = "本工具由Kroulis开发。未经授权，严禁转载。代码使用MIT协议开源，您可以通过GitHub代码仓库访问本工具。\r\n" +
                 " 额外提醒： 如果您需要将任意其他服务器语言包替换为中文，请确保您在替换语言包后安装字体文件。";
             FailedToInstallCNFont = "中文字体安装失败！";
@@ -78,6 +78,14 @@ namespace BDOLangReplacement.Localizations
             BDOLauncherFound = "发现了执行中的黑色沙漠启动器……";
             BDOLauncherNotFound = "请先启动黑色沙漠启动器然后再替换或还原语言包。";
             NewVersionAvailable = "工具当前版本 {0}, 线上最新版本 {1}。 \r\n请问是否要访问代码仓库以下载最新版本？";
+            InsiderProgramFormTitle = "测试功能";
+            InsiderProgramTitle = "加入测试计划";
+            InsiderProgramDescription = "测试计划帮助我们修复程序漏洞以及能为我们提供宝贵的意见。\r\n请通过代码仓库的beta分支了解如何加入本计划。";
+            InsiderProgramDetails = "脚本功能当前只为测试计划内的用户提供。\r\n" +
+                "测试计划目前限时为所有用户开放。\r\n" +
+                "请通过代码仓库内的beta分支了解如何进入此计划。\r\n" +
+                "注意：由于此计划的首要任务是保证程序功能的正常执行，测试计划内的功能可能没有汉化的界面。请谅解！";
+            InsiderProgramLink = "点击这里了解更多";
         }
     }
 }

@@ -30,7 +30,7 @@ namespace BDOLangReplacement
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Waiting for execution");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Waiting for execution");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.controlTab = new System.Windows.Forms.TabControl();
             this.lvi = new System.Windows.Forms.TabPage();
@@ -229,7 +229,6 @@ namespace BDOLangReplacement
             // 
             // ScriptsBtn
             // 
-            this.ScriptsBtn.Enabled = false;
             this.ScriptsBtn.Location = new System.Drawing.Point(442, 80);
             this.ScriptsBtn.Name = "ScriptsBtn";
             this.ScriptsBtn.Size = new System.Drawing.Size(75, 23);
@@ -237,6 +236,7 @@ namespace BDOLangReplacement
             this.ScriptsBtn.TabStop = false;
             this.ScriptsBtn.Text = "Script";
             this.ScriptsBtn.UseVisualStyleBackColor = true;
+            this.ScriptsBtn.Click += new System.EventHandler(this.ScriptsBtn_Click);
             // 
             // advancedText
             // 
@@ -414,10 +414,10 @@ namespace BDOLangReplacement
             // 
             this.advOpExecTreeView.Location = new System.Drawing.Point(328, 9);
             this.advOpExecTreeView.Name = "advOpExecTreeView";
-            treeNode1.Name = "NoResult";
-            treeNode1.Text = "Waiting for execution";
+            treeNode3.Name = "NoResult";
+            treeNode3.Text = "Waiting for execution";
             this.advOpExecTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
+            treeNode3});
             this.advOpExecTreeView.Size = new System.Drawing.Size(244, 291);
             this.advOpExecTreeView.TabIndex = 2;
             // 
@@ -909,7 +909,7 @@ namespace BDOLangReplacement
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Image = global::BDOLangReplacement.Properties.Resources.logo;
             this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
             this.pictureBox1.Location = new System.Drawing.Point(16, 12);
             this.pictureBox1.Name = "pictureBox1";

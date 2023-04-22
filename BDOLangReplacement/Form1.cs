@@ -848,6 +848,14 @@ namespace BDOLangReplacement
 
         private void appLangBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            bool rerender = false;
+            if (appLangBox.SelectedIndex != -1 &&
+                ((conf.appLang.Equals("zh_cn") && appLangBox.SelectedIndex != 1) ||
+                (conf.appLang.Equals("en_us") && appLangBox.SelectedIndex != 0)))
+            {
+                rerender = true;
+            }
+
             if (appLangBox.SelectedIndex == 1)
             {
                 loc = new LocalizationZHCN();
@@ -861,6 +869,11 @@ namespace BDOLangReplacement
 
             localizeComponents();
             conf.write(ConfigFilePath());
+
+            if (rerender)
+            {
+                ReRenderHelperToolVer();
+            }
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -871,6 +884,22 @@ namespace BDOLangReplacement
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void ReRenderHelperToolVer()
+        {
+            string helperToolOnlineVersion = HelperTool.getOnlineVersion();
+            if (!helperToolOnlineVersion.Equals(""))
+            {
+                helperToolOnlineVerLabel.Text = helperToolOnlineVersion;
+                helperToolOnlineVerLabel.ForeColor = Color.Green;
+            }
+            else
+            {
+                helperToolOnlineVerLabel.Text = loc.localize(Localization.FormComponent.Tab3HelperToolVersionUnavailable);
+                helperToolOnlineVerLabel.ForeColor = Color.Red;
+            }
+            updateHelperToolVersion();
         }
 
         private void InstallUpdateHelperToolBtn_Click(object sender, EventArgs e)
@@ -1128,6 +1157,12 @@ namespace BDOLangReplacement
                 exampleBox.Font = customFont;
                 fontInput.Text = ofd.FileName;
             }
+        }
+
+        private void ScriptsBtn_Click(object sender, EventArgs e)
+        {
+            InsiderProgram ip = new InsiderProgram(loc);
+            ip.ShowDialog(this);
         }
     }
 }
