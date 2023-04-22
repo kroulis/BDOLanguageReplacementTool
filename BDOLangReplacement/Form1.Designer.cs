@@ -30,7 +30,7 @@ namespace BDOLangReplacement
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Waiting for execution");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Waiting for execution");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.controlTab = new System.Windows.Forms.TabControl();
             this.lvi = new System.Windows.Forms.TabPage();
@@ -108,9 +108,9 @@ namespace BDOLangReplacement
             this.processCheck = new System.Windows.Forms.Timer(this.components);
             this.downloadUpdate = new System.Windows.Forms.Timer(this.components);
             this.fontCheck = new System.Windows.Forms.Timer(this.components);
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.helperToolProcess = new System.Diagnostics.Process();
             this.fontDialog = new System.Windows.Forms.FontDialog();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.controlTab.SuspendLayout();
             this.lvi.SuspendLayout();
             this.changeLang.SuspendLayout();
@@ -414,10 +414,10 @@ namespace BDOLangReplacement
             // 
             this.advOpExecTreeView.Location = new System.Drawing.Point(328, 9);
             this.advOpExecTreeView.Name = "advOpExecTreeView";
-            treeNode3.Name = "NoResult";
-            treeNode3.Text = "Waiting for execution";
+            treeNode1.Name = "NoResult";
+            treeNode1.Text = "Waiting for execution";
             this.advOpExecTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode3});
+            treeNode1});
             this.advOpExecTreeView.Size = new System.Drawing.Size(244, 291);
             this.advOpExecTreeView.TabIndex = 2;
             // 
@@ -907,16 +907,6 @@ namespace BDOLangReplacement
             this.fontCheck.Interval = 1000;
             this.fontCheck.Tick += new System.EventHandler(this.fontCheck_Tick);
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::BDOLangReplacement.Properties.Resources.logo;
-            this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
-            this.pictureBox1.Location = new System.Drawing.Point(16, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(584, 92);
-            this.pictureBox1.TabIndex = 2;
-            this.pictureBox1.TabStop = false;
-            // 
             // helperToolProcess
             // 
             this.helperToolProcess.StartInfo.Domain = "";
@@ -927,6 +917,16 @@ namespace BDOLangReplacement
             this.helperToolProcess.StartInfo.StandardOutputEncoding = null;
             this.helperToolProcess.StartInfo.UserName = "";
             this.helperToolProcess.SynchronizingObject = this;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::BDOLangReplacement.Properties.Resources.logo;
+            this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
+            this.pictureBox1.Location = new System.Drawing.Point(16, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(584, 92);
+            this.pictureBox1.TabIndex = 2;
+            this.pictureBox1.TabStop = false;
             // 
             // Form1
             // 
