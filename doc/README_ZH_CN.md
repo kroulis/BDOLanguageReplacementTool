@@ -1,4 +1,4 @@
-# 《黑色沙漠》语言包替换文件 [![编译](https://github.com/kroulis/BDOLanguageReplacementTool/actions/workflows/dotnet.yml/badge.svg)](https://github.com/kroulis/BDOLanguageReplacementTool/actions/workflows/dotnet.yml) [![测试](https://github.com/kroulis/BDOLanguageReplacementTool/actions/workflows/unit_test.yml/badge.svg)](https://github.com/kroulis/BDOLanguageReplacementTool/actions/workflows/unit_test.yml)
+# 《黑色沙漠》语言包替换工具 （Beta1）
 
 本程序可帮助您将已安装的黑色沙漠的默认语言文件包替换成任意其他服务器的语言包文件。 本工具目前支持：
 - NAEU Server （欧美服）
@@ -14,32 +14,37 @@
 - Korea Server （韩服）
 
 ## 如何使用本工具：
-1. 您可以克隆本代码仓库然后使用Visual Studio编译或者下载预编译的可执行文件。
-    - 为了保证您计算机的安全，请确保下载的预编译可执行文件的MD5码及SHA码与本代码仓库所提供的一致
-	- 此代码仓库的代码通过自动工具测试是否可以编译（见上方的编译测试横幅）。自动工具使用Visual Studio 2019 Community版本进行编译。
-2. 您可以将本工具（的可执行文件）放置到黑色沙漠的安装根目录下，或者在工具提示后手动选择黑色沙漠根目录。
-3. 等待工具读取最新的语言包版本文件。
-4. （推荐）您可以在“关于”页面中选择中文为工具语言。本工具提供中文界面。
-5. 双击想要替换为的语言包。
-6. 选择当前客户端的默认语言。 您可以在游戏或启动器中查看当前的默认语言。
-7. 通过工具或者自行启动黑色沙漠启动器 （注意：如果您通过Steam来启动游戏，请确保对应的单选框为选中状态）
-8. 登入黑色沙漠启动器并等待游戏更新完成。
-9. 点击“替换按钮”。
-10. （注意：如果您在汉化游戏，请确保中文字体已安装。 本工具提供有效的汉化字体，请通过“安装字体”栏安装中文字体。 这是一次性的操作。）
-11. 点击游戏启动器中的开始游戏。
-12. 恭喜您，您的语言包被成功替换了。
+请查看Master分支的文档以获取使用方式。
 
-## 本工具自动保存您的选择
+## 如何加入Beta1测试计划
+在 `2023年6月1日 00:00:00 AM UTC时区`前，你可以使用以下的邀请码加入测试计划：
+```
+KjsxNjg1NjAyODAwIzNGQjkwQTcyOENDMUFFMDgwRjYyQTEyNDhCRURBRUZCQzU0MkI1NTgxMjRGNzE3MDkyMjhBQjM3MkE5QkY1OEZCRjlGQUREN0FBMkIwOThBMzVFMjVGOTIyMURENzZBNzBDM0M0NUVCNTNFRURBNDUwOTAxOTFGRTZGRTVGQjExMzIwQzk4NkYxNEM1RDNGNkVDN0IwMzdDMUM5RUVBQjc3NDAxMUMwQkZDQzQyRjE2MjJERTlGQ0Y5NERGQkM1Q0M2RTkyRjhFODFCMDA2MDY2QzIwMzc5OUE2MzgzRjdGREU0ODYwNERERDQyOTZEMEZCMzIzOTI2NzFDRUQ4Rjg=
+```
+在上述日期后，请联系本代码仓库作者以获取邀请码。
 
-本工具自动保存您上一次的选择。当您完成步骤4至步骤9一次后，下一次重新启动本工具，工具会自动帮您完成默认语言和替换语言的选择。
+## 如何激活测试功能
+请先下载Beta1版本的预编译可执行文件。
 
-## 于1.1版本增加的功能
-1. 增加了一键合并语言包的功能。 当语言包内缺少部分翻译时，在游戏内会显示为韩文或者显示为空。 本功能能将只存在于原先语言包内的词条复制到替换的语言包中以解决问题。这个功能在`替换语言包`分页中显示为`合并`。
-2. 增加了加密、解密、生成差别词条、合并语言包的功能。这些功能被放置在`高级工具`分页中。（如果需要使用此功能，您需要额外下载辅助工具包。程序内提供一键化的下载安装。 如果您对此工具感到好奇，您可以访问 [kroulis/BDOLangReplacementToolHelper](https://github.com/kroulis/BDOLangReplacementToolHelper)）
+使用与正式版相同的方式设置游戏内语言与目标语言。
 
-## 致谢
+点击`脚本`按钮，在邀请码框中输入你获得的测试邀请码，然后点击`激活`按钮。
 
-特别感谢 **[Reddit 帖](https://www.reddit.com/r/blackdesertonline/comments/p8vjss/guide_all_your_bdo_language_file_needs/)** 为本工具提供思路。
+如果您的邀请码有效，您将自动获得测试脚本功能的权限。
 
-## 疑难问题
-如果您发现代码有任何Bug，请通过Issues提交。我会经常查看本代码仓库。
+## 测试目标：
+1. 测试`新功能：脚本`是否正常允许：
+	+ 创建/修改/执行 一个本地的脚本
+	+ 执行一个在线脚本。范例被放置于：
+		- https://raw.githubusercontent.com/kroulis/BDOLanguageReplacementTool/beta/official/scripts/merge.yml
+		- https://raw.githubusercontent.com/kroulis/BDOLanguageReplacementTool/beta/official/scripts/twcn2zhcn.yml
+		- https://raw.githubusercontent.com/kroulis/BDOLanguageReplacementTool/beta/official/scripts/twcnwithfix.yml
+2. 向我们提供任何建议。
+
+## Beta 1 加入的新功能
+添加了脚本功能。脚本可以让您执行一系列复杂的操作来修改语言包文件。您可以通过工具自带的图形编辑器或通过文本编辑器创建或修改脚本。
+
+本次测试提供给您以下的范例脚本：
++ 一个可以将两个语言包合并的脚本。
++ 一个可以将游戏内语言对应的语言包修改为繁体中文（台服）语言包并自动修复大部分缺失词条的脚本。
++ 一个可以将游戏内语言对应的语言包修改为简体中文（台服）语言包并自动修复大部分缺失词条的脚本。

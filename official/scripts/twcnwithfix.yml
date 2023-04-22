@@ -1,0 +1,68 @@
+Name: TW_CNWithFix
+Author: kroulis
+Contact: https://github.com/kroulis/BDOLanguageReplacementTool
+Version: v1
+Comments:
+  - 本脚本自动下载台服语言包，下载预制修正繁体中文翻译，补全缺失词条，然后替换原本语言包
+Procedure:
+  0:
+    Name: 下载客户端官方语言包
+    Operation: DownloadLanguageFile
+    Language: ${OriginalLanguage}
+    Target: ${TempFolder}\${OriginalLanguageFileName}
+  1:
+    Name: 下载台服语言包
+    Operation: DownloadLanguageFile
+    Language: TW_TW_CN
+    Target: ${TempFolder}/languagedata_tw.loc
+  2:
+    Name: 下载预制修正简体中文翻译
+    Operation: DownloadFile
+    Url: https://raw.githubusercontent.com/kroulis/BDOLanguageReplacementTool/beta/official/locs/bdolr_twfix.loc
+    Target: ${TempFolder}/bdolr_twfix.loc
+  3:
+    Name: 解密官方语言包
+    Operation: DecryptLanguageFile
+    SourceFile: ${TempFolder}\${OriginalLanguageFileName}
+    TargetFile: ${TempFolder}\lan_origin.txt
+  4:
+    Name: 解密台服语言包
+    Operation: DecryptLanguageFile
+    SourceFile: ${TempFolder}\languagedata_tw.loc
+    TargetFile: ${TempFolder}\lan_tw.txt
+  5:
+    Name: 解密预制修正文件
+    Operation: DecryptLanguageFile
+    SourceFile: ${TempFolder}\bdolr_twfix.loc
+    TargetFile: ${TempFolder}\lan_tw_fix.txt
+  6:
+    Name: 生成差异词条
+    Operation: DiffLanguageFile
+    SourceFile: ${TempFolder}\lan_origin.txt
+    TargetFile: ${TempFolder}\lan_origin_diff.txt
+    AdditionalFiles:
+    - ${TempFolder}\lan_tw.txt
+    - ${TempFolder}\lan_tw_fix.txt
+  7:
+    Name: 合并语言文件
+    Operation: MergeLanguageFile
+    SourceFile: ${TempFolder}\lan_tw.txt
+    TargetFile: ${TempFolder}\lan_tw_product.txt
+    AdditionalFiles:
+    - ${TempFolder}\lan_origin_diff.txt
+    - ${TempFolder}\lan_tw_fix.txt
+  8:
+    Name: 加密语言文件
+    Operation: EncryptLanguageFile
+    SourceFile: ${TempFolder}\lan_tw_product.txt
+    TargetFile: ${TempFolder}\languagedata_product.loc
+  9:
+    Name: 替换语言文件
+    Operation: ReplaceFile
+    Source: ${TempFolder}\languagedata_product.loc
+    Target: ${BDOLanguageFolder}\${OriginalLanguageFileName}
+Cleanup:
+  - ${TempFolder}\lan_tw.txt
+  - ${TempFolder}\lan_tw_product.txt
+  - ${TempFolder}\lan_origin.txt
+  - ${TempFolder}\lan_origin_diff.txt

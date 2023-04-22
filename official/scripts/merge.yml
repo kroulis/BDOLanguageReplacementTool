@@ -1,0 +1,60 @@
+Name: Merge Language File
+Author: kroulis
+Contact: https://github.com/kroulis/BDOLanguageReplacementTool
+Version: v1
+Comments:
+  - This script merges two different localization files by
+  - 1.Downloads the original localization file and the target localization file.
+  - 2.Decrypts them and generate original language only phrases.
+  - 3.It merges the target localization file with the original language only phrases.
+  - 4.It encrypts the generated phrases and replace the original localization file.
+Procedure:
+  0:
+    Name: Download Original Language
+    Operation: DownloadLanguageFile
+    Language: ${OriginalLanguage}
+    Target: ${TempFolder}\${OriginalLanguageFileName}
+  1:
+    Name: Download Target Language
+    Operation: DownloadLanguageFile
+    Language: ${TargetLanguage}
+    Target: ${TempFolder}/${TargetLanguageFileName}
+  2:
+    Name: Decrypt Original Language
+    Operation: DecryptLanguageFile
+    SourceFile: ${TempFolder}\${OriginalLanguageFileName}
+    TargetFile: ${TempFolder}\lan_origin.txt
+  3:
+    Name: Decrypt Target Language
+    Operation: DecryptLanguageFile
+    SourceFile: ${TempFolder}\${TargetLanguageFileName}
+    TargetFile: ${TempFolder}\lan_target.txt
+  4:
+    Name: Generate Original only phrases
+    Operation: DiffLanguageFile
+    SourceFile: ${TempFolder}\lan_origin.txt
+    TargetFile: ${TempFolder}\lan_origin_diff.txt
+    AdditionalFiles:
+    - ${TempFolder}\lan_target.txt
+  5:
+    Name: Merge the localization files
+    Operation: MergeLanguageFile
+    SourceFile: ${TempFolder}\lan_target.txt
+    TargetFile: ${TempFolder}\lan_product.txt
+    AdditionalFiles:
+    - ${TempFolder}\lan_origin_diff.txt
+  12:
+    Name: Encrypt the product
+    Operation: EncryptLanguageFile
+    SourceFile: ${TempFolder}\lan_product.txt
+    TargetFile: ${TempFolder}\languagedata_product.loc
+  13:
+    Name: Replace the language file
+    Operation: ReplaceFile
+    Source: ${TempFolder}\languagedata_product.loc
+    Target: ${BDOLanguageFolder}\${OriginalLanguageFileName}
+Cleanup:
+  - ${TempFolder}\lan_origin.txt
+  - ${TempFolder}\lan_origin_diff.txt
+  - ${TempFolder}\lan_target.txt
+  - ${TempFolder}\lan_product.txt

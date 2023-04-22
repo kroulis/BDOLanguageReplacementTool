@@ -1,0 +1,97 @@
+Name: TW_CN2ZH_CN
+Author: kroulis
+Contact: https://github.com/kroulis/BDOLanguageReplacementTool
+Version: v1
+Comments:
+  - 本脚本自动下载台服语言包，翻译为简体中文，下载预制修正繁体中文翻译，转换为简体中文，补全缺失词条，然后替换原本语言包
+Procedure:
+  0:
+    Name: 下载客户端官方语言包
+    Operation: DownloadLanguageFile
+    Language: ${OriginalLanguage}
+    Target: ${TempFolder}\${OriginalLanguageFileName}
+  1:
+    Name: 下载台服语言包
+    Operation: DownloadLanguageFile
+    Language: TW_TW_CN
+    Target: ${TempFolder}/languagedata_tw.loc
+  2:
+    Name: 下载预制修正简体中文翻译
+    Operation: DownloadFile
+    Url: https://raw.githubusercontent.com/kroulis/BDOLanguageReplacementTool/beta/official/locs/bdolr_twfix.loc
+    Target: ${TempFolder}/bdolr_twfix.loc
+  3:
+    Name: 解密官方语言包
+    Operation: DecryptLanguageFile
+    SourceFile: ${TempFolder}\${OriginalLanguageFileName}
+    TargetFile: ${TempFolder}\lan_origin.txt
+  4:
+    Name: 解密台服语言包
+    Operation: DecryptLanguageFile
+    SourceFile: ${TempFolder}\languagedata_tw.loc
+    TargetFile: ${TempFolder}\lan_tw.txt
+  5:
+    Name: 解密修正语言包
+    Operation: DecryptLanguageFile
+    SourceFile: ${TempFolder}\bdolr_twfix.loc
+    TargetFile: ${TempFolder}\bdolr_twfix.txt
+  6:
+    Name: 生成源语言特有词条
+    Operation: DiffLanguageFile
+    SourceFile: ${TempFolder}\lan_origin.txt
+    TargetFile: ${TempFolder}\lan_origin_diff.txt
+    AdditionalFiles:
+    - ${TempFolder}\lan_tw.txt
+    - ${TempFolder}\bdolr_twfix.txt
+  7:
+    Name: 转换繁体中文修正包为简体中文
+    Operation: TranslateLanguageFile
+    SourceFile: ${TempFolder}\bdolr_twfix.txt
+    TargetFile: ${TempFolder}\bdolr_cnfix.txt
+    Mode: TW_CN2ZH_CN
+  8：
+    Name: 生成繁体中文新增词条
+    Operation: DiffLanguageFile
+    SourceFile: ${TempFolder}\lan_tw.txt
+    TargetFile: ${TempFolder}\lan_tw_new.txt
+    AdditionalFiles:
+    - ${TempFolder}\lan_zh_save.txt
+  9:
+    Name: 转换繁体中文新增词条为简体中文
+    Operation: TranslateLanguageFile
+    SourceFile: ${TempFolder}\lan_tw_new.txt
+    TargetFile: ${TempFolder}\lan_zh_new.txt
+    Mode: TW_CN2ZH_CN
+  10:
+    Name: 合并简体中文词条
+    Operation: MergeLanguageFile
+    SourceFile: ${TempFolder}\lan_zh_new.txt
+    TargetFile: ${TempFolder}\lan_zh_save.txt
+    AdditionalFiles:
+    - ${TempFolder}\lan_zh_save.txt
+  11:
+    Name: 合并语言文件
+    Operation: MergeLanguageFile
+    SourceFile: ${TempFolder}\lan_zh_save.txt
+    TargetFile: ${TempFolder}\lan_zh_origin.txt
+    AdditionalFiles:
+    - ${TempFolder}\lan_origin_diff.txt
+    - ${TempFolder}\bdolr_cnfix.txt
+  12:
+    Name: 加密语言文件
+    Operation: EncryptLanguageFile
+    SourceFile: ${TempFolder}\lan_zh_origin.txt
+    TargetFile: ${TempFolder}\languagedata_product.loc
+  13:
+    Name: 替换语言文件
+    Operation: ReplaceFile
+    Source: ${TempFolder}\languagedata_product.loc
+    Target: ${BDOLanguageFolder}\${OriginalLanguageFileName}
+Cleanup:
+  - ${TempFolder}\bdolr_twfix.txt
+  - ${TempFolder}\bdolr_cnfix.txt
+  - ${TempFolder}\lan_origin.txt
+  - ${TempFolder}\lan_tw.txt
+  - ${TempFolder}\lan_tw_new.txt
+  - ${TempFolder}\lan_zh_new.txt
+  - ${TempFolder}\lan_zh_origin.txt

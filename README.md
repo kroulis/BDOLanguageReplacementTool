@@ -1,4 +1,4 @@
-# BDO Language File Replacement Tool [![Build Status](https://github.com/kroulis/BDOLanguageReplacementTool/actions/workflows/dotnet.yml/badge.svg)](https://github.com/kroulis/BDOLanguageReplacementTool/actions/workflows/dotnet.yml) [![Unit Test](https://github.com/kroulis/BDOLanguageReplacementTool/actions/workflows/unit_test.yml/badge.svg)](https://github.com/kroulis/BDOLanguageReplacementTool/actions/workflows/unit_test.yml)
+# BDO Language File Replacement Tool (Beta 1)
 
 This tool helps you to replace the default localization file of an installed Black Desert Online Client with another localization file (that could be from a different Server's Client). The tool currently supports:
 - NAEU Server
@@ -14,31 +14,40 @@ The tool currently does not support:
 - Korea Server
 
 ## How to use this tool
-1. Either clone this repo and compile the code using visual studio or download a prebuild executable **directly** from this github repo.
-    - Make sure to check the MD5/SHA1 of the executable after downloading the prebuild executable.
-	- The code is tested to be able to build using automation tools with a Visual Studio 2019 Community Edition. 
-2. Either put this tool in the root folder of the BDO or you will have to manually select the BDO root folder.
-3. Wait until the tool to finish grabbing the most recent localization file version data before performing proceeding the following.
-4. Double click the language file you want to replace to.
-5. Choose the default language of your current game client.
-6. Start the BDO launcher either from the tool or on your own. (Notice that if you purchased the game from steam, make sure the corresponding checkbox is checked)
-7. Login to the BDO launcher and wait for the update to finish.
-8. Click the Replace button in the tool.
-9. Start the game.
-10. Happy gaming!
+Please refer to the main branch's document!
 
-## Cache system
+## How to join the beta 1 test
+Before `June 1, 2023 00:00:00 AM UTC`, you can use input the following invite code to the tool:
+```
+KjsxNjg1NjAyODAwIzNGQjkwQTcyOENDMUFFMDgwRjYyQTEyNDhCRURBRUZCQzU0MkI1NTgxMjRGNzE3MDkyMjhBQjM3MkE5QkY1OEZCRjlGQUREN0FBMkIwOThBMzVFMjVGOTIyMURENzZBNzBDM0M0NUVCNTNFRURBNDUwOTAxOTFGRTZGRTVGQjExMzIwQzk4NkYxNEM1RDNGNkVDN0IwMzdDMUM5RUVBQjc3NDAxMUMwQkZDQzQyRjE2MjJERTlGQ0Y5NERGQkM1Q0M2RTkyRjhFODFCMDA2MDY2QzIwMzc5OUE2MzgzRjdGREU0ODYwNERERDQyOTZEMEZCMzIzOTI2NzFDRUQ4Rjg=
+```
+After the above date, please contact the repo owner directly for invite code!
 
-The tool saves your last operation by memorizing the source language type and the target language type. So once you completed step 4 to 8 one time, the next time the tool will directly select it for you, and you just need to do step 6 to 8.
+## How to activate the scripting feature
+First download the prebuild binary in the beta branch.
 
-## Functionalities added in 1.1
-1. Added a simple solution to fix missing phrases from a localization file by using the original language file's phrases. Missing phrases will be showing in korean or just blank in game. This solution is shown as the `Merge` in the `Language File Replacement` tab.
-2. Added functions to decrypt, encrypt, diff, merge localization files. This part is added to the `Advance` tab. (For accessing this portion, you need to download the other repo's executable. The download and install is embedded to this tool to provide ease of access. If you are curious about the helper tool, please see [kroulis/BDOLangReplacementToolHelper](https://github.com/kroulis/BDOLangReplacementToolHelper))
+Go through the original method to select the source language and the target language.
 
+Click the `Script` button, type in the invite code and press activate.
 
-## Special thanks
+If your invite code is valid, you are now having access to the in testing feature. 
 
-Special thanks to this **[Reddit Post](https://www.reddit.com/r/blackdesertonline/comments/p8vjss/guide_all_your_bdo_language_file_needs/)**.
+## What to test for:
+1. Test if the scripting feature is working intended:
+	+ Create/Modify/Execute a local script
+	+ Execute an online script. The demo scripts are at:
+		- https://raw.githubusercontent.com/kroulis/BDOLanguageReplacementTool/beta/official/scripts/merge.yml
+		- https://raw.githubusercontent.com/kroulis/BDOLanguageReplacementTool/beta/official/scripts/twcn2zhcn.yml
+		- https://raw.githubusercontent.com/kroulis/BDOLanguageReplacementTool/beta/official/scripts/twcnwithfix.yml
+2. Provide us any suggestion you are thinking off.
+
+## Functionalities added in Beta 1
+Added the scripting feature that allows you to execute a script to modify the language files. This script can be edited by the tool's embedded graphical editor.
+
+A few sample scripts have been provided in this test for demonstration purpose:
++ A script to merge two different localization files.
++ A script to merge a language (tested with NAEU server) with TW_CN language.
++ A script to merge a language (tested with NAEU server) with ZH_CN language.
 
 ## Issues
 If you found any bug in this software, you can submit issues freely. I will regularly check the repo.
