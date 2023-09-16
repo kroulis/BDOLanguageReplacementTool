@@ -70,7 +70,7 @@ namespace BDOLangReplacement.Localizations
             Tab4CustomFontBoxText = "Select Custom Font to Install:";
             Tab4BrowseFontBtnText = "Browse Font";
             Tab4BrowseFontFileBtnText = "Browse File";
-            Tab4CannotReadFontFilePathText = "Cannot get the font file path or the font is not ttf type. Try use the \"Browse File\"";
+            Tab4CannotReadFontFilePathText = "Cannot get the font file path or the font is not ttf/otf (for SEA server) type. Try use the \"Browse File\"";
             Tab5AboutText = "This tool is made by Kroulis. You can replace you localization file freely with this tool. " +
                 "This tool is proudly open sourced with MIT licence. You can check it out in GitHub using the link below. Have fun!";
             FailedToInstallCNFont = "Failed to install the CN Font.";

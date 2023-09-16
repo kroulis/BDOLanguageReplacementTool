@@ -70,7 +70,7 @@ namespace BDOLangReplacement.Localizations
             Tab4CustomFontBoxText = "自选字体安装到游戏内:";
             Tab4BrowseFontBtnText = "选择字体";
             Tab4BrowseFontFileBtnText = "从文件选择字体";
-            Tab4CannotReadFontFilePathText = "无法取得字体文件或字体文件不是ttf类型。请使用\"从文件选择字体\"";
+            Tab4CannotReadFontFilePathText = "无法取得字体文件或字体文件不是ttf (如果您是SEA服务器的话 otf)类型。请使用\"从文件选择字体\"";
             Tab5AboutText = "本工具由Kroulis开发。未经授权，严禁转载。代码使用MIT协议开源，您可以通过GitHub代码仓库访问本工具。\r\n" +
                 " 额外提醒： 如果您需要将任意其他服务器语言包替换为中文，请确保您在替换语言包后安装字体文件。";
             FailedToInstallCNFont = "中文字体安装失败！";
