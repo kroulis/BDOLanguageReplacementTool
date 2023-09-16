@@ -823,7 +823,7 @@ namespace BDOLangReplacement
                             if (!File.Exists(tempFolder + "zhcn.otf"))
                             {
                                 WebClient client = new WebClient();
-                                client.DownloadFile("https://raw.githubusercontent.com/kroulis/BDOLanguageReplacementTool/master/fonts/twcn.otf", tempFolder + "zhcn.otf");
+                                client.DownloadFile("https://raw.githubusercontent.com/kroulis/BDOLanguageReplacementTool/master/fonts/zhcn.otf", tempFolder + "zhcn.otf");
                             }
                             File.Copy(tempFolder + "zhcn.otf", LocalFontFilePath());
                         }
