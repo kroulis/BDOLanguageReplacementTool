@@ -748,8 +748,13 @@ namespace BDOLangReplacement
             downloadLog = true;
         }
 
-        private string LocalFontFilePath()
+        private string LocalFontFilePath(bool temp=false)
         {
+            if (isSEAServer() && !temp)
+            {
+                // ISSUE1: SEA server uses th_pearl.otf
+                return LocalFontDirPath() + "th_pearl.otf";
+            }
             return LocalFontDirPath() + "pearl.ttf";
         }
 
@@ -774,6 +779,12 @@ namespace BDOLangReplacement
             }
         }
 
+        private bool isSEAServer()
+        {
+            return (conf.defaultLanguage == Languages.Language.SEA_ID) || (conf.defaultLanguage == Languages.Language.SEA_EN) ||
+                   (conf.defaultLanguage == Languages.Language.SEA_ID_EN);
+        }
+
         private void SetupCNFont_Click(object sender, EventArgs e)
         {
             if (fontInstalled)
@@ -783,16 +794,66 @@ namespace BDOLangReplacement
             else
             {
                 var assembly = Assembly.GetExecutingAssembly();
-                
+
                 // First create the folder
                 if (!Directory.Exists(LocalFontDirPath()))
                 {
                     Directory.CreateDirectory(LocalFontDirPath());
                 }
+
+                // ISSUE1: SEA Server cannot use ttf fonts
+                if (isSEAServer())
+                {
+                    bool installed = false;
+                    try
+                    {
+                        if (TwcnFontSwitchButton.Checked)
+                        {
+                            installed = true;
+                            if (!File.Exists(tempFolder + "twcn.otf"))
+                            {
+                                WebClient client = new WebClient();
+                                client.DownloadFile("https://raw.githubusercontent.com/kroulis/BDOLanguageReplacementTool/master/fonts/twcn.otf", tempFolder + "twcn.otf");
+                            }
+                            File.Copy(tempFolder + "twcn.otf", LocalFontFilePath());
+                        }
+                        else if (ZhcnFontSwitchButton.Checked)
+                        {
+                            installed = true;
+                            if (!File.Exists(tempFolder + "zhcn.otf"))
+                            {
+                                WebClient client = new WebClient();
+                                client.DownloadFile("https://raw.githubusercontent.com/kroulis/BDOLanguageReplacementTool/master/fonts/twcn.otf", tempFolder + "zhcn.otf");
+                            }
+                            File.Copy(tempFolder + "zhcn.otf", LocalFontFilePath());
+                        }
+                    }
+                    catch(Exception _)
+                    {
+                        MessageBox.Show(loc.localize(Localization.FormComponent.FailedToInstallCNFont),
+                        loc.localize(Localization.FormComponent.FailedToInstallCNFontTitle), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    finally
+                    {
+                        if (installed)
+                        {
+                            // Write the font config
+                            string fontConfig = File.ReadAllText(BDOConfigPath);
+                            fontConfig = Regex.Replace(fontConfig, @"UIFontType = (\d{1})", "UIFontType = 0");
+                            File.WriteAllText(BDOConfigPath, fontConfig);
+                        }
+                    }
+
+                    if (installed)
+                    {
+                        return;
+                    }
+                }
+
                 FileStream fs = null;
                 try
                 {
-                    fs = new FileStream(LocalFontFilePath(), FileMode.Create);
+                    fs = new FileStream(LocalFontFilePath(true), FileMode.Create);
                     Stream font = assembly.GetManifestResourceStream(FontResWorkPlace);
                     ResourceReader rr = new ResourceReader(font);
                     string resourceType;
@@ -809,8 +870,17 @@ namespace BDOLangReplacement
                     {
                         font.Close();
                         fs.Close();
-                        if (File.Exists(fontInput.Text) && fontInput.Text.EndsWith(".ttf"))
+                        if (isSEAServer())
                         {
+                            // ISSUE1: delete temp file for other servers
+                            File.Delete(LocalFontFilePath(true));
+                        }
+                        if (File.Exists(fontInput.Text))
+                        {
+                            if (isSEAServer() && !fontInput.Text.EndsWith(".otf"))
+                                return;
+                            if (!isSEAServer() && !fontInput.Text.EndsWith(".ttf"))
+                                return;
                             if (File.Exists(LocalFontFilePath()))
                                 File.Delete(LocalFontFilePath());
                             File.Copy(fontInput.Text, LocalFontFilePath());
@@ -823,14 +893,13 @@ namespace BDOLangReplacement
                     fs.Write(resourceData, 4, resourceData.Length - 4);
                     fs.Flush();
                     fs.Close();
-                    font.Close();
                 }
                 catch (Exception)
                 {
                     if (fs != null)
                     {
                         fs.Close();
-                        File.Delete(LocalFontFilePath());
+                        File.Delete(LocalFontFilePath(true));
                     }
 
                     MessageBox.Show(loc.localize(Localization.FormComponent.FailedToInstallCNFont), 
@@ -1114,7 +1183,7 @@ namespace BDOLangReplacement
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 List<string> ft = GetFilesForFont(fontDialog.Font.Name);
-                if (ft != null && ft.Count() > 0 && ft[0].EndsWith(".ttf"))
+                if (ft != null && ft.Count() > 0 && (isSEAServer()? ft[0].EndsWith(".otf") : ft[0].EndsWith(".ttf"))) // ISSUE1: SEA server uses otf fonts
                 {
                     fontInput.Text = ft[0];
                     exampleBox.Font = fontDialog.Font;
@@ -1131,7 +1200,7 @@ namespace BDOLangReplacement
         {
             OpenFileDialog ofd = new OpenFileDialog
             {
-                Filter = "TTF Font File (*.ttf)|*.ttf",
+                Filter = isSEAServer()? "OTF Font File (*.otf)|*.otf" : "TTF Font File (*.ttf)|*.ttf", // ISSUE1: SEA server uses otf fonts
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Fonts),
                 CheckFileExists = true,
                 CheckPathExists = true,
