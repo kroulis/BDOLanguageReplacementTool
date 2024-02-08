@@ -581,7 +581,7 @@ namespace BDOLangReplacement
                 {
                     Action updateBar = delegate
                     {
-                        replaceBar.Value = 10 + (int)(e.ProgressPercentage * 0.2f);
+                        replaceBar.Value = 10 + (int)(e.ProgressPercentage * 0.1f);
                     };
                     replaceBar.Invoke(updateBar);
                     Action appendDownloadLog = delegate
@@ -609,7 +609,7 @@ namespace BDOLangReplacement
                 {
                     Action updateBar = delegate
                     {
-                        replaceBar.Value = 30 + (int)(e.ProgressPercentage * 0.2f);
+                        replaceBar.Value = 20 + (int)(e.ProgressPercentage * 0.1f);
                     };
                     replaceBar.Invoke(updateBar);
                     Action appendDownloadLog = delegate
@@ -641,11 +641,11 @@ namespace BDOLangReplacement
                 replacementLog.AppendText(" [DONE]" + Environment.NewLine);
             };
             replacementLog.Invoke(operationCompleted);
-            Action updateBar60 = delegate
+            Action updateBar40 = delegate
             {
-                replaceBar.Value = 60;
+                replaceBar.Value = 40;
             };
-            replaceBar.Invoke(updateBar60);
+            replaceBar.Invoke(updateBar40);
             Action decryptOriginal = delegate
             {
                 replacementLog.AppendText("Decrypting original localization file");
@@ -655,26 +655,105 @@ namespace BDOLangReplacement
                 Path.GetFullPath(tempFolder + "loc_base.txt"), (int)HelperToolArgument.HelperToolOpCode.Decrypt);
             HelperTool.execute(tempFolder, argD2);
             replacementLog.Invoke(operationCompleted);
-            Action updateBar70 = delegate
+            Action updateBar50 = delegate
             {
-                replaceBar.Value = 70;
+                replaceBar.Value = 50;
             };
-            replaceBar.Invoke(updateBar70);
-            Action MergeStart = delegate
+            replaceBar.Invoke(updateBar50);
+
+            /* Helper tool version 1.0.0.0 does not have additional feature to remove phrases
+             * from the localization file. Therefore just directly merge the language files.
+             */
+            if (HelperTool.getLocalVersion(helperToolPath).Equals("1.0.0.0"))
             {
-                replacementLog.AppendText("Merging Localization files (This may take a long time)");
-            };
-            replacementLog.Invoke(MergeStart);
-            HelperToolArgument argM = new HelperToolArgument(Path.GetFullPath(tempFolder + "loc_base.txt"),
-                Path.GetFullPath(tempFolder + "loc_merge.txt"), (int)HelperToolArgument.HelperToolOpCode.Merge);
-            argM.addAdditionalFile(Path.GetFullPath(tempFolder + "loc_rep.txt"));
-            HelperTool.execute(tempFolder, argM);
-            replacementLog.Invoke(operationCompleted);
-            Action updateBar90 = delegate
+                Action MergeStart = delegate
+                {
+                    replacementLog.AppendText("Merging Localization files (This may take a long time)");
+                };
+                replacementLog.Invoke(MergeStart);
+                HelperToolArgument argM = new HelperToolArgument(Path.GetFullPath(tempFolder + "loc_base.txt"),
+                    Path.GetFullPath(tempFolder + "loc_merge.txt"), (int)HelperToolArgument.HelperToolOpCode.Merge);
+                argM.addAdditionalFile(Path.GetFullPath(tempFolder + "loc_rep.txt"));
+                HelperTool.execute(tempFolder, argM);
+                replacementLog.Invoke(operationCompleted);
+                Action updateBar90 = delegate
+                {
+                    replaceBar.Value = 90;
+                };
+                replaceBar.Invoke(updateBar90);
+            }
+            else
             {
-                replaceBar.Value = 90;
-            };
-            replaceBar.Invoke(updateBar90);
+                /* Issue 3 Fix: Some clients will not load phrases if there are conflict
+                 * phrases (same item different region code; for example: pearl shop items)
+                 * To resolve this, we will need to remove the replacement language specific
+                 * phrases.
+                 */
+                Action Diff1Start = delegate
+                {
+                    replacementLog.AppendText("Generating original localization only phrases (This may take a long time)");
+                };
+                replacementLog.Invoke(Diff1Start);
+                HelperToolArgument argF1 = new HelperToolArgument(Path.GetFullPath(tempFolder + "loc_base.txt"),
+                   Path.GetFullPath(tempFolder + "loc_diff1.txt"), (int)HelperToolArgument.HelperToolOpCode.Diff);
+                argF1.addAdditionalFile(Path.GetFullPath(tempFolder + "loc_rep.txt"));
+                HelperTool.execute(tempFolder, argF1);
+                replacementLog.Invoke(operationCompleted);
+                Action updateBar60 = delegate
+                {
+                    replaceBar.Value = 60;
+                };
+                replaceBar.Invoke(updateBar60);
+
+                Action Diff2Start = delegate
+                {
+                    replacementLog.AppendText("Generating replacement localization only phrases (This may take a long time)");
+                };
+                replacementLog.Invoke(Diff2Start);
+                HelperToolArgument argF2 = new HelperToolArgument(Path.GetFullPath(tempFolder + "loc_rep.txt"),
+                   Path.GetFullPath(tempFolder + "loc_diff2.txt"), (int)HelperToolArgument.HelperToolOpCode.Diff);
+                argF2.addAdditionalFile(Path.GetFullPath(tempFolder + "loc_base.txt"));
+                HelperTool.execute(tempFolder, argF2);
+                replacementLog.Invoke(operationCompleted);
+                Action updateBar80 = delegate
+                {
+                    replaceBar.Value = 80;
+                };
+                replaceBar.Invoke(updateBar80);
+
+                Action RmStart = delegate
+                {
+                    replacementLog.AppendText("Removing replacement localization only phrases");
+                };
+                replacementLog.Invoke(RmStart);
+                HelperToolArgument argRM = new HelperToolArgument(Path.GetFullPath(tempFolder + "loc_rep.txt"),
+                   Path.GetFullPath(tempFolder + "loc_rep_n.txt"), (int)HelperToolArgument.HelperToolOpCode.Remove);
+                argRM.addAdditionalFile(Path.GetFullPath(tempFolder + "loc_diff2.txt"));
+                HelperTool.execute(tempFolder, argRM);
+                replacementLog.Invoke(operationCompleted);
+                Action updateBar85 = delegate
+                {
+                    replaceBar.Value = 85;
+                };
+                replaceBar.Invoke(updateBar85);
+
+                Action MergeStart = delegate
+                {
+                    replacementLog.AppendText("Merging Localization files");
+                };
+                replacementLog.Invoke(MergeStart);
+                HelperToolArgument argM = new HelperToolArgument(Path.GetFullPath(tempFolder + "loc_rep_n.txt"),
+                    Path.GetFullPath(tempFolder + "loc_merge.txt"), (int)HelperToolArgument.HelperToolOpCode.Merge);
+                argM.addAdditionalFile(Path.GetFullPath(tempFolder + "loc_diff1.txt"));
+                HelperTool.execute(tempFolder, argM);
+                replacementLog.Invoke(operationCompleted);
+                Action updateBar90 = delegate
+                {
+                    replaceBar.Value = 90;
+                };
+                replaceBar.Invoke(updateBar90);
+            }
+            
             Action EncryptStart = delegate
             {
                 replacementLog.AppendText("Encrypting merged localization file");
@@ -716,6 +795,18 @@ namespace BDOLangReplacement
             {
                 File.Delete(tempFolder + "loc_rep.txt");
             }
+            if (File.Exists(tempFolder + "loc_diff1.txt"))
+            {
+                File.Delete(tempFolder + "loc_diff1.txt");
+            }
+            if (File.Exists(tempFolder + "loc_diff2.txt"))
+            {
+                File.Delete(tempFolder + "loc_diff2.txt");
+            }
+            if (File.Exists(tempFolder + "loc_rep_n.txt"))
+            {
+                File.Delete(tempFolder + "loc_rep_n.txt");
+            }
             if (File.Exists(tempFolder + "loc_merge.txt"))
             {
                 File.Delete(tempFolder + "loc_merge.txt");
@@ -723,7 +814,7 @@ namespace BDOLangReplacement
             if (File.Exists(tempFolder + "languagedata_merge.loc"))
             {
                 File.Delete(tempFolder + "languagedata_merge.loc");
-            }    
+            }
         }
         private void Replace_Click(object sender, EventArgs e)
         {
