@@ -57,7 +57,7 @@ namespace BDOLangReplacement.Localizations
             Tab3AdvancedOpAddtionalFile2Text = "额外文件2:";
             Tab3AdvancedOpExecuteBtnText = "执行";
             Tab3AdvancedOpBrowseBtnText = "浏览";
-            Tab3AdvancedOpCodeSelectBoxItems = "加密 [文本文件->本地化文件(语言包)]\n解密 [本地化文件(语言包)->文本文件]\n生成差别词条 [限文本文件]\n合并 [将多个文本文件合并为一个文本文件]\n繁体中文转简体中文 [限文本文件]";
+            Tab3AdvancedOpCodeSelectBoxItems = "解密 [本地化文件(语言包)->文本文件]\n加密 [文本文件->本地化文件(语言包)]\n生成差别词条 [限文本文件]\n合并 [将多个文本文件合并为一个文本文件]\n繁体中文转简体中文 [限文本文件]\n词条替换\n词条重命名\n移除指定词条";
             Tab3InstallHelperToolFirstText = "无法找到辅助工具箱。请先安装辅助工具箱。";
             Tab4CNFontBtnText = "安装或卸载 pearl.ttf";
             Tab4FontStatus = "是否已安装：";

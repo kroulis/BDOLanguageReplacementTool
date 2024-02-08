@@ -288,7 +288,10 @@ namespace BDOLangReplacement
             Diff = 2,
             Merge = 3,
             Translate_ZHCN = 4,
-            Licences = 5
+            Replace = 5,
+            Rename = 6,
+            Remove = 7,
+            Licences = 8
         };
         HelperToolOpCode opcode;
         List<string> additionalFiles;
@@ -317,6 +320,12 @@ namespace BDOLangReplacement
                     return "-m";
                 case HelperToolOpCode.Translate_ZHCN:
                     return "-zh_cn";
+                case HelperToolOpCode.Replace:
+                    return "-r";
+                case HelperToolOpCode.Rename:
+                    return "-rn";
+                case HelperToolOpCode.Remove:
+                    return "-rm";
                 case HelperToolOpCode.Licences:
                     return "-lic";
             }

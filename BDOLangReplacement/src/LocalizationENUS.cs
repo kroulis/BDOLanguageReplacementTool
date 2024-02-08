@@ -57,7 +57,7 @@ namespace BDOLangReplacement.Localizations
             Tab3AdvancedOpAddtionalFile2Text = "Additional2:";
             Tab3AdvancedOpExecuteBtnText = "Execute";
             Tab3AdvancedOpBrowseBtnText = "Browse";
-            Tab3AdvancedOpCodeSelectBoxItems = "Encrypt\nDecrypt\nDiff\nMerge\nTranslate(Traditional Chinese to Simplified Chinese)";
+            Tab3AdvancedOpCodeSelectBoxItems = "Decrypt\nEncrypt\nDiff\nMerge\nTranslate(Traditional Chinese to Simplified Chinese)\nReplace\nRename\nRemove";
             Tab3InstallHelperToolFirstText = "Tool not found. Please install the tool first!";
             Tab4CNFontBtnText = "Install OR Remove pearl.ttf";
             Tab4FontStatus = "Font Status:";
